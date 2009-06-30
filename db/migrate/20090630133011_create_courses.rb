@@ -1,7 +1,4 @@
 class CreateCourses < ActiveRecord::Migration
-  def self.connection
-    RitesPortal::Course.connection
-  end
   def self.up
     create_table :rites_portal_courses do |t|
       
