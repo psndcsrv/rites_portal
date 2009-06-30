@@ -1,3 +1,6 @@
+RitesPortal
+===========
+
 This is a Rails Engine plugin designed to implement portal functionality such that would be used in schools. It will have:
 
 - Districts
@@ -6,3 +9,19 @@ This is a Rails Engine plugin designed to implement portal functionality such th
 - Students
 - Classes
 - etc.
+
+Installation
+============
+run: script/plugin install git://github.com/psndcsrv/rites_portal.git
+add: 'map.from_plugin :rites_portal' to your config/routes.rb
+run: script/generate plugin_migration
+run: rake db:migrate
+
+
+Example
+=======
+
+Example goes here.
+
+
+Copyright (c) 2009 [name of plugin creator], released under the MIT license
