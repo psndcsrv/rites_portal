@@ -1,0 +1,8 @@
+This is a Rails Engine plugin designed to implement portal functionality such that would be used in schools. It will have:
+
+- Districts
+- Schools
+- Teachers
+- Students
+- Classes
+- etc.
