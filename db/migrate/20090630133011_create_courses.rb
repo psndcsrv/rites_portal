@@ -3,7 +3,7 @@ class CreateCourses < ActiveRecord::Migration
     RitesPortal::Course.connection
   end
   def self.up
-    create_table :courses do |t|
+    create_table :rites_portal_courses do |t|
       
       t.integer   "user_id"
       t.string    "uuid",        :limit => 36
@@ -15,6 +15,6 @@ class CreateCourses < ActiveRecord::Migration
   end
 
   def self.down
-    drop_table :courses
+    drop_table :rites_portal_courses
   end
 end
