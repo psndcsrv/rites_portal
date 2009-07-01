@@ -1,0 +1,2 @@
+module RitesPortal::TeachersHelper
+end

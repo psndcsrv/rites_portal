@@ -1,0 +1,2 @@
+module RitesPortal::StudentsHelper
+end

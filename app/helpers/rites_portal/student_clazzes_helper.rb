@@ -1,0 +1,2 @@
+module RitesPortal::StudentClazzesHelper
+end

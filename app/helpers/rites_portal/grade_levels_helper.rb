@@ -1,0 +1,2 @@
+module RitesPortal::GradeLevelsHelper
+end
