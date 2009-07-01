@@ -1,3 +1,3 @@
 class RitesPortal::ApplicationController < ActionController::Base
-  layout 'standard'
+  layout 'rites_portal_standard'
 end
