@@ -5,6 +5,6 @@ class RitesPortal::GradeLevel < ActiveRecord::Base
   
   has_many :students, :class_name => "RitesPortal::Student", :foreign_key => "grade_level_id"
   
-  has_and_belongs_to_many :teachers, :join_table => "rites_portal_grade_levels_teachers", :foreign_key => "teacher_id"
-  has_and_belongs_to_many :courses, :join_table => "rites_portal_courses_grade_levels", :foreign_key => "course_id"
+  has_and_belongs_to_many :teachers, :join_table => "rites_portal_grade_levels_teachers"
+  has_and_belongs_to_many :courses, :join_table => "rites_portal_courses_grade_levels"
 end
