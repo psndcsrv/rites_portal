@@ -6,3 +6,9 @@ require File.join(File.dirname(__FILE__), '/lib/rites_portal.rb')
 #   RitesPortal.configure_connections(:rites_portal)
 # rescue Exception
 # end
+
+require 'activesupport'
+
+ActiveSupport::Inflector.inflections do |inflect|
+  inflect.irregular 'clazz', 'clazzes'
+end
