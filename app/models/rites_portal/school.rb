@@ -7,5 +7,5 @@ class RitesPortal::School < ActiveRecord::Base
   has_many :semesters, :class_name => "RitesPortal::Semester", :foreign_key => "school_id"
   has_many :grade_levels, :class_name => "RitesPortal::GradeLevel", :foreign_key => "school_id"
   
-  has_many_polymorphs :memberships, :from => [:teachers, :students], :through => :school_memberships, :class_name => "RitesPortal::SchoolMembership", :foreign_key => "school_id"
+  has_many_polymorphs :members, :from => [:teachers, :students], :through => :school_memberships, :class_name => "RitesPortal::SchoolMembership", :foreign_key => "school_id"
 end
