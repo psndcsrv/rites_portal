@@ -7,7 +7,7 @@
 <% @learners.each do |learner| %>
   <tr>
     <td><%= link_to 'Show', learner %></td>
-    <td><%= link_to 'Edit', edit_learner_path(learner) %></td>
+    <td><%= link_to 'Edit', edit_rites_portal_learner_path(learner) %></td>
     <td><%= link_to 'Destroy', learner, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
@@ -15,4 +15,4 @@
 
 <br />
 
-<%= link_to 'New learner', new_learner_path %>
+<%= link_to 'New learner', new_rites_portal_learner_path %>

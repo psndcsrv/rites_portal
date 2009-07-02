@@ -7,7 +7,7 @@
 <% @nces06_districts.each do |nces06_district| %>
   <tr>
     <td><%= link_to 'Show', nces06_district %></td>
-    <td><%= link_to 'Edit', edit_nces06_district_path(nces06_district) %></td>
+    <td><%= link_to 'Edit', edit_rites_portal_nces06_district_path(nces06_district) %></td>
     <td><%= link_to 'Destroy', nces06_district, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
@@ -15,4 +15,4 @@
 
 <br />
 
-<%= link_to 'New nces06_district', new_nces06_district_path %>
+<%= link_to 'New nces06_district', new_rites_portal_nces06_district_path %>
