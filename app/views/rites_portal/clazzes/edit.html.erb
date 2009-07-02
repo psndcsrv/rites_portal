@@ -1,2 +1,12 @@
-<%= javascript_include_tag :defaults %>
-<%= active_scaffold_includes %>
+<h1>Editing clazz</h1>
+
+<% form_for(@clazz) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @clazz %> |
+<%= link_to 'Back', clazzes_path %>
