@@ -7,7 +7,7 @@
 <% @student_clazzes.each do |student_clazz| %>
   <tr>
     <td><%= link_to 'Show', student_clazz %></td>
-    <td><%= link_to 'Edit', edit_student_clazz_path(student_clazz) %></td>
+    <td><%= link_to 'Edit', edit_rites_portal_student_clazz_path(student_clazz) %></td>
     <td><%= link_to 'Destroy', student_clazz, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
@@ -15,4 +15,4 @@
 
 <br />
 
-<%= link_to 'New student_clazz', new_student_clazz_path %>
+<%= link_to 'New student_clazz', new_rites_portal_student_clazz_path %>

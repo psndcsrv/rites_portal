@@ -7,7 +7,7 @@
 <% @school_memberships.each do |school_membership| %>
   <tr>
     <td><%= link_to 'Show', school_membership %></td>
-    <td><%= link_to 'Edit', edit_school_membership_path(school_membership) %></td>
+    <td><%= link_to 'Edit', edit_rites_portal_school_membership_path(school_membership) %></td>
     <td><%= link_to 'Destroy', school_membership, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
@@ -15,4 +15,4 @@
 
 <br />
 
-<%= link_to 'New school_membership', new_school_membership_path %>
+<%= link_to 'New school_membership', new_rites_portal_school_membership_path %>

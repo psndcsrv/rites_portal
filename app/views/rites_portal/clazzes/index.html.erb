@@ -7,7 +7,7 @@
 <% @clazzes.each do |clazz| %>
   <tr>
     <td><%= link_to 'Show', clazz %></td>
-    <td><%= link_to 'Edit', edit_clazz_path(clazz) %></td>
+    <td><%= link_to 'Edit', edit_rites_portal_clazz_path(clazz) %></td>
     <td><%= link_to 'Destroy', clazz, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
@@ -15,4 +15,4 @@
 
 <br />
 
-<%= link_to 'New clazz', new_clazz_path %>
+<%= link_to 'New clazz', new_rites_portal_clazz_path %>

@@ -7,7 +7,7 @@
 <% @nces06_schools.each do |nces06_school| %>
   <tr>
     <td><%= link_to 'Show', nces06_school %></td>
-    <td><%= link_to 'Edit', edit_nces06_school_path(nces06_school) %></td>
+    <td><%= link_to 'Edit', edit_rites_portal_nces06_school_path(nces06_school) %></td>
     <td><%= link_to 'Destroy', nces06_school, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
@@ -15,4 +15,4 @@
 
 <br />
 
-<%= link_to 'New nces06_school', new_nces06_school_path %>
+<%= link_to 'New nces06_school', new_rites_portal_nces06_school_path %>
