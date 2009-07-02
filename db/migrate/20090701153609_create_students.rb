@@ -7,7 +7,7 @@ class CreateStudents < ActiveRecord::Migration
       t.text      :description
       
       t.integer   :user_id
-      t.integer   :grade_level
+      t.integer   :grade_level_id
 
       t.timestamps
     end

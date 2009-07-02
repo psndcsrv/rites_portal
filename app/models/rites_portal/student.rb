@@ -11,5 +11,5 @@ class RitesPortal::Student < ActiveRecord::Base
   has_many :learners, :class_name => "RitesPortal::Learner", :foreign_key => "student_id"
   has_many :student_clazzes, :class_name => "RitesPortal::StudentClazz", :foreign_key => "student_id"
   
-  has_many :clazzes, :through => :student_clazzes
+  has_many :clazzes, :through => :student_clazzes, :class_name => "RitesPortal::Clazz"
 end
