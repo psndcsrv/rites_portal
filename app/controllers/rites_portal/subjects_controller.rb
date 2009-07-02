@@ -2,11 +2,11 @@ class RitesPortal::SubjectsController < ApplicationController
   # GET /rites_portal_subjects
   # GET /rites_portal_subjects.xml
   def index
-    @rites_portal_subjects = RitesPortal::Subject.all
+    @subjects = RitesPortal::Subject.all
 
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @rites_portal_subjects }
+      format.xml  { render :xml => @subjects }
     end
   end
 

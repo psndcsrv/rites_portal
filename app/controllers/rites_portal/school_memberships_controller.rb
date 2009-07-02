@@ -2,11 +2,11 @@ class RitesPortal::SchoolMembershipsController < ApplicationController
   # GET /rites_portal_school_memberships
   # GET /rites_portal_school_memberships.xml
   def index
-    @rites_portal_school_memberships = RitesPortal::SchoolMembership.all
+    @school_memberships = RitesPortal::SchoolMembership.all
 
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @rites_portal_school_memberships }
+      format.xml  { render :xml => @school_memberships }
     end
   end
 

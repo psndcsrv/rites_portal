@@ -2,11 +2,11 @@ class RitesPortal::ClazzesController < ApplicationController
   # GET /rites_portal_clazzes
   # GET /rites_portal_clazzes.xml
   def index
-    @rites_portal_clazzes = RitesPortal::Clazz.all
+    @clazzes = RitesPortal::Clazz.all
 
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @rites_portal_clazzes }
+      format.xml  { render :xml => @clazzes }
     end
   end
 

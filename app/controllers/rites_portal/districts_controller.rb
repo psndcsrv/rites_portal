@@ -2,11 +2,11 @@ class RitesPortal::DistrictsController < ApplicationController
   # GET /rites_portal_districts
   # GET /rites_portal_districts.xml
   def index
-    @rites_portal_districts = RitesPortal::District.all
+    @districts = RitesPortal::District.all
 
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @rites_portal_districts }
+      format.xml  { render :xml => @districts }
     end
   end
 
