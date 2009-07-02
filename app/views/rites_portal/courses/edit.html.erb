@@ -1,2 +1,12 @@
-<%= javascript_include_tag :defaults %>
-<%= active_scaffold_includes %>
+<h1>Editing course</h1>
+
+<% form_for(@course) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @course %> |
+<%= link_to 'Back', courses_path %>

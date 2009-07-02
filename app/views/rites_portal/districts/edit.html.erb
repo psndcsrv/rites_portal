@@ -1,2 +1,12 @@
-<%= javascript_include_tag :defaults %>
-<%= active_scaffold_includes %>
+<h1>Editing district</h1>
+
+<% form_for(@district) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @district %> |
+<%= link_to 'Back', districts_path %>

@@ -1,2 +1,18 @@
-<%= javascript_include_tag :defaults %>
-<%= active_scaffold_includes %>
+<h1>Listing districts</h1>
+
+<table>
+  <tr>
+  </tr>
+
+<% @districts.each do |district| %>
+  <tr>
+    <td><%= link_to 'Show', district %></td>
+    <td><%= link_to 'Edit', edit_district_path(district) %></td>
+    <td><%= link_to 'Destroy', district, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New district', new_district_path %>

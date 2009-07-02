@@ -1,2 +1,18 @@
-<%= javascript_include_tag :defaults %>
-<%= active_scaffold_includes %>
+<h1>Listing clazzes</h1>
+
+<table>
+  <tr>
+  </tr>
+
+<% @clazzes.each do |clazz| %>
+  <tr>
+    <td><%= link_to 'Show', clazz %></td>
+    <td><%= link_to 'Edit', edit_clazz_path(clazz) %></td>
+    <td><%= link_to 'Destroy', clazz, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New clazz', new_clazz_path %>
