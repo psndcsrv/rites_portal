@@ -13,7 +13,6 @@ class CreateSchools < ActiveRecord::Migration
   end
 
   def self.down
-    drop_table :rites_portal_memberships
     drop_table :rites_portal_schools
   end
 end
