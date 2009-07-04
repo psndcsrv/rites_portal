@@ -6,8 +6,8 @@ class NcesParser
   def initialize(district_layout_file, school_layout_file, year, states_and_provinces=nil)
     ## @year_str gets inserted to the db table names
     @year_str = year.to_s[-2..-1]
-    
-    puts 'Parsing layout files ...'
+    puts
+    puts 'Parsing layout files:'
     @district_layout = _get_district_layout(district_layout_file)
     puts "#{@district_layout.size} variables retrieved from #{district_layout_file}"
     @school_layout = _get_school_layout(school_layout_file)
@@ -38,22 +38,34 @@ class NcesParser
     ## Delete all the entries first
     ## Use the TRUNCATE cammand -- works in mysql to effectively empty the database and reset 
     ## the autogenerating primary key index ... not certain about other databases
-    ActiveRecord::Base.connection.delete("TRUNCATE `#{@district_model.table_name}`")
-    ActiveRecord::Base.connection.delete("TRUNCATE `#{@school_model.table_name}`")
-    puts "\nLoading district data:"
-    district_data_files.each do |fpath|
-      open(fpath) do |file|
-        _parse_file_using_import(file, @district_layout, @district_model)
-      end
-    end
-    puts "\nLoading school data:"
-    school_data_files.each do |fpath|
-      open(fpath) do |file|
-        _parse_file_using_import(file, @school_layout, @school_model)
-      end
-    end
-    puts "\nGenerating Nces06District 'has_many :nces_schools' associations:"
-    _parseDistrictSchoolAssociations
+    # if @states_and_provinces
+    #   puts "\nImporting data from: #{@states_and_provinces.join(', ')}."
+    # else
+    #   puts "\nImporting all data."
+    # end
+    # ActiveRecord::Base.connection.delete("TRUNCATE `#{@district_model.table_name}`")
+    # ActiveRecord::Base.connection.delete("TRUNCATE `#{@school_model.table_name}`")
+    # puts
+    # puts "Loading district data:"
+    # district_data_files.each do |fpath|
+    #   open(fpath) do |file|
+    #     _parse_file_using_import(file, @district_layout, @district_model)
+    #   end
+    # end
+    # puts "#{@district_model.count} #{@district_model.name} records created"
+    # puts
+    # puts "Loading school data:"
+    # school_data_files.each do |fpath|
+    #   open(fpath) do |file|
+    #     _parse_file_using_import(file, @school_layout, @school_model)
+    #   end
+    # end
+    # puts "#{@school_model.count} #{@school_model.name} records created"
+    puts
+    puts "Generating #{@school_model.count} #{@school_model.name} 'belongs_to :nces_district' associations:"
+    # _parseDistrictSchoolAssociations
+    _parseDistrictSchoolAssociationWithIndex
+    puts
   end
 
 private
@@ -73,10 +85,10 @@ private
   def _get_school_layout(layout_file)
     columns = []
     open(layout_file) do |file|
-      cnt = 0
+      count = 0
       line = ''
-      while (line = file.gets) && cnt < 2 do #fast forward until real data begins
-        cnt += 1 if line =~ /=====/
+      while (line = file.gets) && count < 2 do #fast forward until real data begins
+        count += 1 if line =~ /=====/
       end
       while line do
         unless line =~ /\A\s/
@@ -116,10 +128,10 @@ private
   def _get_district_layout(layout_file)
     columns = []
     open(layout_file) do |file|
-      cnt = 0
+      count = 0
       line = ''
-      while (line = file.gets) && cnt < 2 do #fast forward until real data begins
-        cnt += 1 if line =~ /=====/
+      while (line = file.gets) && count < 2 do #fast forward until real data begins
+        count += 1 if line =~ /=====/
       end
       while line do
         unless line =~ /\A\s/
@@ -172,16 +184,14 @@ private
   #
   def _parse_file_using_import(file, layout, model)
     attributes = {}
-    cnt = 0
+    count = 0
     value_sets = []
     column_names = model.columns.map{ |column| column.name }
     not_nces_fields = column_names.select { |name| name[/id/] }
     field_names = column_names - not_nces_fields
-
+    options = { :validate => false }
     mstate_index = nil
     field_names.each_with_index { |name, i| if name == 'MSTATE' then mstate_index = i end }
-
-    options = { :validate => false }
     while (line = file.gets) do
       next if line.strip == ''
       values = []
@@ -208,8 +218,8 @@ private
         records = model.import(field_names, value_sets, options)
         value_sets = values = []
       end
-      cnt += 1
-      if cnt % 100 == 0
+      count += 1
+      if count % 500 == 0
         print '.'
         STDOUT.flush
       end
@@ -217,7 +227,7 @@ private
     if value_sets.length > 0
       model.import(field_names, value_sets, options)
     end    
-    puts "\n#{cnt} records saved from #{file.path}"
+    puts "\n#{count} records processed from #{file.path}"
   end
   
   # Creates the AR association: Nces06District 'has_many :nces_schools'
@@ -229,29 +239,52 @@ private
   # FIXME: the performance of nces_districts.detect becomes much slower as the
   # key being searched for is near the end of the array of districts (> 18,000).
   #
+  # However for 18,000 record it's still about twice as fast as using a Hash lookup
   def _parseDistrictSchoolAssociations
     nces_districts = @district_model.find_by_sql("SELECT id,LEAID from #{RitesPortal::Nces06District.table_name}")
     district_id_and_leaid_array = nces_districts.collect { |d| [d.id, d.LEAID] }
+    
     nces_schools = @school_model.find_by_sql("SELECT id, nces_district_id, LEAID from #{RitesPortal::Nces06School.table_name}")
     count = 0
     status = '.'
     nces_schools.each do |nces_school|
       leaid = nces_school.LEAID
-      if district_id_and_leaid = district_id_and_leaid_array.detect { |d| d[1] == leaid }
+      district_id_and_leaid = district_id_and_leaid_array.detect { |d| d[1] == leaid }
+      if district_id_and_leaid
         nces_school.nces_district_id = district_id_and_leaid[0]
+      else
+        status = 'x'
+      end
+      count += 1
+      if count % 500 == 0
+        print status
+        STDOUT.flush
+        status = '.'
+      end
+    end
+  end
+
+  def _parseDistrictSchoolAssociationWithIndex
+    nces_schools = @school_model.find_by_sql("SELECT id, nces_district_id, LEAID from #{@school_model.table_name}")
+    count = 0
+    status = '.'
+    nces_schools.each do |nces_school|
+      leaid = nces_school.LEAID
+      nces_district = @district_model.find_by_sql("SELECT id from `#{@district_model.table_name}` WHERE `LEAID` LIKE '#{nces_school.LEAID}'")
+      if nces_district
+        nces_school.nces_district_id = nces_district.id
         nces_school.save!
       else
         status = 'x'
       end
       count += 1
-      if count >= 500
+      if count % 500 == 0
         print status
         STDOUT.flush
         status = '.'
-        count = 0
       end
     end
-  end  
+  end
 end
 
 class NcesMigrationGenerator
@@ -266,7 +299,7 @@ class NcesMigrationGenerator
     @district_table_name = "rites_portal_nces#{@year_str}_districts"
     @school_table_name = "rites_portal_nces#{@year_str}_schools"
     @indexes_migration_file_name = "create_nces#{@year_str}_indexs.rb"
-    @indexes_class_name = "CreateNces#{@year_str}Indexes"    
+    @indexes_migration_class_name = "CreateNces#{@year_str}Indexes"    
   end
   
   def write_tables_migration
@@ -290,17 +323,31 @@ private
 
   def _getIndexesText
     district_index_fields = %w{LEAID STID NAME}
-    school_index_fields   = %w{SCHNO STID SCHNAM}
-    @text << "class #{@indexes_migration_class_name} < ActiveRecord::Migration\n\n"
+    school_index_fields   = %w{NCESSCH STID SCHNAM}
+    @text << "class #{@indexes_migration_class_name} < ActiveRecord::Migration\n"
     @text << "  def self.up\n"
     @text <<     _getDistrictIndexs(district_index_fields, 'add_index')
+    @text << "\n"
     @text <<     _getSchoolIndexs(school_index_fields, 'add_index')
     @text << "  end\n\n"
     @text << "  def self.down\n"
     @text <<     _getDistrictIndexs(district_index_fields, 'remove_index')
+    @text << "\n"
     @text <<     _getSchoolIndexs(school_index_fields, 'remove_index')
-    @text << "  end\n\n"
+    @text << "  end\n"
     @text << "end\n"
+  end
+
+  def _getDistrictIndexs(index_fields, index_command)
+    index_fields.collect do |field_name| 
+      _getIndexText(field_name, @district_layout, @district_table_name, index_command)
+    end.join
+  end
+
+  def _getSchoolIndexs(index_fields, index_command)
+    index_fields.collect do |field_name| 
+      _getIndexText(field_name, @school_layout, @school_table_name, index_command)
+    end.join
   end
 
   def _getTablesText
@@ -322,23 +369,11 @@ private
     @text << "end\n"
   end
 
-  def _getDistrictIndexs(index_fields, index_command)
-    index_fields.collect do |field_name| 
-      _getIndexText(field_name, @district_layout, @district_table_name, index_command)
-    end.join + "\n"
-  end
-
-  def _getSchoolIndexs(index_fields, index_command)
-    index_fields.collect do |field_name| 
-      _getIndexText(field_name, @school_layout, @school_table_name, index_command)
-    end.join + "\n"
-  end
-
   # these constants are used in the following two instance
   # methods that generate lines for the index and table migrations
   STRING_FIELD_LAYOUT = "      %-10s%-12s%-18s%-20s"
   NUMBER_FIELD_LAYOUT = "      %-10s%-30s%-20s"
-  INDEX_FIELD_LAYOUT  = "      %-16s%-30s%-12s%-20s"
+  INDEX_FIELD_LAYOUT  = "    %-14s%-34s%-12s%-20s"
   STRING_FIELD        = "t.string"
   FLOAT_FIELD         = "t.float"
   INTEGER_FIELD       = "t.integer"
@@ -348,12 +383,7 @@ private
   def _getIndexText(field_name, layout, table_name, index_command)
     field_def = layout.find { |column_def| column_def[0] == field_name }
     field_comment = (field_def ? field_def[5] : " \n")
-    if index_command == 'remove_index'
-      text = sprintf(INDEX_FIELD_LAYOUT, index_command, ":#{table_name},", ":#{field_name},", " \n")
-    else
-      text = sprintf(INDEX_FIELD_LAYOUT, index_command, ":#{table_name},", ":#{field_name},", '# '+field_comment)
-    end
-    text
+    text = sprintf(INDEX_FIELD_LAYOUT, index_command, ":#{table_name},", ":#{field_name}", '# '+field_comment)
   end
 
   def _getFieldsText(layout)
