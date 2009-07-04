@@ -65,7 +65,7 @@ h2. Required plugins
 h2. Required Gems:
 
 # ActiveRecord::Extension, http://github.com/zdennis/ar-extensions/tree/master
-**  'ar-extensions', '>= 0.9.1'
+'ar-extensions', '>= 0.9.1'
 
 Gem requirements should be added to config/environment.rb in the app that is embedding this engine.
 
@@ -168,5 +168,7 @@ Fix the migration ... and run them 'up' again:
   $ rake db:migrate:down VERSION=20090704075811
 
 You can do this as many times as you want ... but after committing and pushing the code with the migrations you should not change these migrations again but instead make the corrections in new migrations.
+
+However if you have generated several sets of migration changes along with several runs of 'script/generate plugin_migration' in the enclosing app AND all the migrations in the engine make sense to run 'up' or 'down' as a unit you can edit the first plugin migration that you added to the enclosing app and have the 'up' migration refer to the version string for the most recent in the list of new migrations and the 'down' migration refer to the version of the migration that precedes the first migration of this new sequence.
 
 When the changes are ready push the rites_portal changes and switch to the enclosing app and commit and push the change in the reference to the vendor/plugins/rites_portal submodule and the new plugin migration added to the main app.
