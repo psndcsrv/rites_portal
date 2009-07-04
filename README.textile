@@ -27,8 +27,8 @@ Also install the rites_portal engine as a plugin:
 
   $ script/plugin install git://github.com/psndcsrv/rites_portal.git
 
-*This isn't needed anymore*, see: "Edge engines now compatible with Rails 2.3":http://rails-engines.org/news/2009/04/20/edge-engines-now-compatible-with-rails-2-3/
-* _Add this route to config/routes.rb  "map.from_plugin :rites_portal"_
+*This isn't needed anymore:* Add this route to config/routes.rb: map.from_plugin :rites_portal
+see: "Edge engines now compatible with Rails 2.3":http://rails-engines.org/news/2009/04/20/edge-engines-now-compatible-with-rails-2-3/
 
 Generate a migration in your app that when run will run all the migrations in the rites_portal engine:
 
