@@ -1,3 +1,5 @@
+# http://www.usps.com/ncsc/lookups/usps_abbreviations.html
+
 module StatesAndProvinces
   STATES_AND_PROVINCES = {
     'AL' => 'ALABAMA',
