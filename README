@@ -1,31 +1,172 @@
-RitesPortal
-===========
+h1. RitesPortal Rails Engine
 
 This is a Rails Engine plugin designed to implement portal functionality such that would be used in schools. It will have:
 
-- Districts
-- Schools
-- Teachers
-- Students
-- Classes
-- etc.
+* Districts
+* Schools
+* Teachers
+* Students
+* Classes
+* etc.
 
-Installation
-============
-run: script/plugin install git://github.com/psndcsrv/rites_portal.git
-add: 'map.from_plugin :rites_portal' to your config/routes.rb
-run: script/generate plugin_migration
-run: rake db:migrate
+h2. Installation
 
+h3. Installation into a new application
 
-required gems:
+The rites_portal engine uses git and the instructions below assume you are also using git for the application you are embedding the engine in.
 
-  'ar-extensions', '>= 0.9.1'
+If you aren't already using git submodules in your application setup your repo for submodules:
 
-Example
-=======
+  $ git submodule init
 
-Example goes here.
+If the Rails Engine plugin is not already installed -- install it now (http://rails-engines.org/download):
 
+  $ script/plugin install git://github.com/lazyatom/engines.git
 
-Copyright (c) 2009 [name of plugin creator], released under the MIT license
+Also install the rites_portal engine as a plugin:
+
+  $ script/plugin install git://github.com/psndcsrv/rites_portal.git
+
+Add this route to config/routes.rb (is this true? it isn't present in the rites investigations code):
+
+  map.from_plugin :rites_portal
+
+Generate a migration in your app that when run will run all the migrations in the rites_portal engine:
+
+  $ script/generate plugin_migration
+
+Add the models used by the rite_portal engine to your working database:
+
+  $ rake db:migrate
+
+h3. Installation into the RITES Investigations application
+
+Currently the work with the rites_portal engine is in the 'with-portal' branch.
+
+If you are starting work with this branch create a local branch that will track the remote branch:
+
+  $ git co --track -b with-portal origin/with-portal
+
+Initialize and update the git submodule system:
+
+  $ git submodule init
+  $ git submodule update
+
+Add the models used by the rite_portal engine to your working database:
+
+  $ rake db:migrate
+
+The with-portal branch should already be configured to initialize the portal.
+
+h2. Required plugins
+
+# Rails Engines, http://rails-engines.org/download
+
+h2. Required Gems:
+
+# ActiveRecord::Extension, http://github.com/zdennis/ar-extensions/tree/master
+**  'ar-extensions', '>= 0.9.1'
+
+Gem requirements should be added to config/environment.rb in the app that is embedding this engine.
+
+h2. Working on the RitesPortal Engine
+
+The rites_portal engine is managed as a git submodule in the app it is embedded in. For effective development the engine needs to be installed as a plugin inside a working Rails app.
+
+More about Rails Engines:
+
+* http://rails-engines.org/
+* http://api.rails-engines.org/
+* http://railscasts.com/episodes/149-rails-engines
+* http://www.justinball.com/2009/06/16/testing-rails-engine-gems/
+
+h3. Working with the rites_portal engine as a git submodule
+
+cd to the working directory for the engine and checkout the head of the master branch:
+
+  $ cd vendor/plugins/rites_portal
+  $ git co master
+
+Fix bugs, add features, write tests ...
+
+When your changes are ready push them back to the git repo for the rails_portal engine:
+
+  $ git push origin master
+
+cd to the root dir of the app that the engine is embedded in:
+
+  $ cd ../../..
+
+git status should show that the git submodule vendor/plugins/rites_portal has been changed:
+
+  $ git status
+  # On branch with-portal
+  # Changed but not updated:
+  #   (use "git add <file>..." to update what will be committed)
+  #   (use "git checkout -- <file>..." to discard changes in working directory)
+  #
+  #	modified:   vendor/plugins/rites_portal
+
+You can also use 'git submodule status' to check the status of all installed submodules
+
+  $ git submodule status
+   5b16d05aeeb857f99f602c594068a7f25b940422 vendor/plugins/attachment_fu (5b16d05)
+   bc5cd970e048dfe5e0e8c06ccf4969bd0d1299be vendor/plugins/engines (2.1.0-60-gbc5cd97)
+  +35606e8af9321dd6d9c56643b79e47fdee2bd2bc vendor/plugins/rites_portal (heads/master)
+
+The '+' indicates that the submodule: vendor/plugins/rites_portal has been modified. The status line then indicates the current SHA for the HEAD of the branch, the directory where he submodule is located, and either a SHA or the name of a branch for the current state of the submodule.
+
+Add a reference to the newer version of the rite_portal engine to your git index and commit it:
+
+  $ git add vendor/plugins/rites_portal
+  $ git commit vendor/plugins/rites_portal -m 'updated to new version of rites_portal engine'
+
+h3. Adding database migrations to the rites_portal engine
+
+First the migrations are added to the RITES_PORTAL_ROOT/db/migrate directory then a migration is added to the enclosing app which when run will in turn run the new migrations in the rails_portal engine.
+
+Running script/generate migration doesn't work in the engine directory so I have been creating migrations using script/generate migration in the main application and then moving the new migration to the engines migration directory: 
+
+  vendor/plugins/rites_portal/db/migrate
+
+Here's an example showing how I generated two migrations to add an attribute for a new 'belongs_to' association:
+
+  $ cd ../../..
+
+  $ script/generate migration add_nces_district_id_to_rites_portal_district nces_district_id:integer
+      exists  db/migrate
+      create  db/migrate/20090704180324_add_nces_district_id_to_rites_portal_district.rb
+
+  $ mv db/migrate/20090704180324_add_nces_district_id_to_rites_portal_district.rb vendor/plugins/rites_portal/db/migrate
+
+  $ script/generate migration add_nces_school_id_to_rites_portal_school nces_school_id:integer
+      exists  db/migrate
+      create  db/migrate/20090704180532_add_nces_school_id_to_rites_portal_school.rb
+
+  $ mv db/migrate/20090704180532_add_nces_school_id_to_rites_portal_school.rb vendor/plugins/rites_portal/db/migrate
+
+Now generate the migration in the app the rites_portal engine is embedded in that will references (and run) the new rites_portal engine migrations:
+
+(from the ROOT directory in the enclosing application)
+
+  $ script/generate plugin_migration
+
+This will generate a new migration that when run will run the new migrations in the rites_portal engine.
+
+Run the new migrations to make the changes in the database:
+
+  $ rake db:migrate
+
+If you find you need want to change the migrations (and you haven't shared the code yet with other folks) first run the new migrations in reverse to restore the database to the original schema:
+
+(in the following examples I am assuming the version string for the plugin migration in the enclosing app is '20090704075811')
+
+  $ rake db:migrate:down VERSION=20090704075811
+
+Fix the migration ... and run them 'up' again:
+
+  $ rake db:migrate:down VERSION=20090704075811
+
+You can do this as many times as you want ... but after committing and pushing the code with the migrations you should not change these migrations again but instead make the corrections in new migrations.
+
+When the changes are ready push the rites_portal changes and switch to the enclosing app and commit and push the change in the reference to the vendor/plugins/rites_portal submodule and the new plugin migration added to the main app.
