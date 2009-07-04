@@ -18,6 +18,10 @@ run: script/generate plugin_migration
 run: rake db:migrate
 
 
+required gems:
+
+  'ar-extensions', '>= 0.9.1'
+
 Example
 =======
 
