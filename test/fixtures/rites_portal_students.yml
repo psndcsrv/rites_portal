@@ -1,7 +1,9 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+s1:
+  name: Marcus Aurelius
+  description: A model student
+  user_id: 1
 
-# one:
-#   column: value
-#
-# two:
-#   column: value
+s2:
+  name: Paul Dirac
+  description: Infinitesimal burst of talent
+  user_id: 2
