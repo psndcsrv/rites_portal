@@ -9,6 +9,9 @@ require File.join(File.dirname(__FILE__), '/lib/rites_portal.rb')
 
 require 'activesupport'
 
+# setup the plugin so it gets reloaded in development mode
+ActiveSupport::Dependencies.load_once_paths.delete_if {|path| path.match("vendor/plugins/rites_portal")}
+
 ActiveSupport::Inflector.inflections do |inflect|
   inflect.irregular 'clazz', 'clazzes'
 end
