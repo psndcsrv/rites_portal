@@ -1,6 +1,6 @@
 c1:
   name: Epistemology & Electronics (Afternoon)
-  description: DESC
+  description: Afternoon class
   class_word: electron
   status: open
   start_time: 2009-07-01 15:00
@@ -10,7 +10,7 @@ c1:
   teacher_id: 1
 c2:
   name: Revolution Edginess Section 1
-  description: DESC
+  description: Section 1 (T, Th)
   class_word: evolution
   status: archived
   start_time: 2009-07-11 09:00
