@@ -1,7 +1,11 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-
-# one:
-#   column: value
-#
-# two:
-#   column: value
+course1:
+  name: Epistemology & Electronics
+  description: Can we really understand electrons when we don't see them?
+  school_id: 1
+  status: open
+  
+course2:
+  name: Revolution Edginess
+  description: Entropy of power equilibrium
+  school_id: 1
+  status: open
