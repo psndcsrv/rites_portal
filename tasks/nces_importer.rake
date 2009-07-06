@@ -1,9 +1,7 @@
-require 'open-uri'
-
-namespace :rigse do
+namespace :rites_portal do
   namespace :setup do
     
-    nces_dir = File.join('config', 'nces_data')
+    nces_dir = File.join(%w{ vendor plugins rites_portal config nces_data })
     school_layout_file = File.join(nces_dir, 'psu061blay.txt')
     district_layout_file = File.join(nces_dir, 'pau061blay.txt')
     
@@ -37,8 +35,9 @@ namespace :rigse do
     
     desc 'Generate migration files for nces tables'
     task :generate_nces_migration => :environment do
+      target_dir = File.join(%w{ vendor plugins rites_portal db migrate })
       parser = NcesParser.new(district_layout_file, school_layout_file, 2006)
-      parser.create_migration
+      parser.create_migration(target_dir)
     end
     
     desc 'Import nces data from file config/rigse_data/nces/*'
