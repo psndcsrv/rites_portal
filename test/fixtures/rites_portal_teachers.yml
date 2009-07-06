@@ -1,7 +1,14 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+t1:
+  name: Grigory Rasputin
+  description: Dubious influence
+  user_id: 101
 
-# one:
-#   column: value
-#
-# two:
-#   column: value
+t2:
+  name: John von Neumann
+  description: Classified
+  user_id: 102
+
+t3:
+  name: Homer Simpson
+  description: Nice guy
+  user_id: 103
