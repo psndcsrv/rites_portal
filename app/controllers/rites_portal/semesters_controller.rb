@@ -40,7 +40,7 @@ class RitesPortal::SemestersController < ApplicationController
   # POST /rites_portal_semesters
   # POST /rites_portal_semesters.xml
   def create
-    @semester = RitesPortal::Semester.new(params[:semester])
+    @semester = RitesPortal::Semester.new(params[:rites_portal_semester])
 
     respond_to do |format|
       if @semester.save
@@ -58,9 +58,8 @@ class RitesPortal::SemestersController < ApplicationController
   # PUT /rites_portal_semesters/1.xml
   def update
     @semester = RitesPortal::Semester.find(params[:id])
-
     respond_to do |format|
-      if @semester.update_attributes(params[:semester])
+      if @semester.update_attributes(params[:rites_portal_semester])
         flash[:notice] = 'RitesPortal::Semester was successfully updated.'
         format.html { redirect_to(@semester) }
         format.xml  { head :ok }

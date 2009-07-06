@@ -40,7 +40,7 @@ class RitesPortal::CoursesController < ApplicationController
   # POST /rites_portal_courses
   # POST /rites_portal_courses.xml
   def create
-    @course = RitesPortal::Course.new(params[:course])
+    @course = RitesPortal::Course.new(params[:rites_portal_course])
 
     respond_to do |format|
       if @course.save
@@ -60,7 +60,7 @@ class RitesPortal::CoursesController < ApplicationController
     @course = RitesPortal::Course.find(params[:id])
 
     respond_to do |format|
-      if @course.update_attributes(params[:course])
+      if @course.update_attributes(params[:rites_portal_course])
         flash[:notice] = 'RitesPortal::Course was successfully updated.'
         format.html { redirect_to(@course) }
         format.xml  { head :ok }
