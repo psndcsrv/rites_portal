@@ -28,6 +28,9 @@ ActionController::Routing::Routes.draw do |map|
     rites_portal.resources :student_clazzes, :active_scaffold => true 
     rites_portal.resources :subjects, :active_scaffold => true 
     rites_portal.resources :teachers, :active_scaffold => true
+    
+    rites_portal.home 'readme', :controller => 'home', :action => 'readme'
+    
   end
   
 end
