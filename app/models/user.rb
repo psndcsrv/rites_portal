@@ -123,6 +123,28 @@ class User < ActiveRecord::Base
     self
   end
   
+  ###################################################
+  ### SDS Specific code
+  ###################################################
+  after_create :create_sds_counterpart
+  
+  # Find or creates a learner for this sds runnable object
+  # and for the specified user.
+  def create_sds_counterpart
+    name_parts = []
+    if self.name
+      name_parts = self.name.split(' ',2)
+    else
+      name_parts << self.uuid
+    end
+    name_parts << "" if name_parts.size < 2
+    self.create_sds_config(:sds_id => RitesPortal::SdsConnect::Connect.create_sail_user(name_parts[0], name_parts[1]))
+  end
+  
+  ###################################################
+  ### End SDS Specific code
+  ###################################################
+  
   protected
     
   def make_activation_code
