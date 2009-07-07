@@ -1,12 +1,6 @@
 <h1>Editing student</h1>
 
-<% form_for(@student) do |f| %>
-  <%= f.error_messages %>
-
-  <p>
-    <%= f.submit 'Update' %>
-  </p>
-<% end %>
+<%= render :partial => 'form', :locals => {:student => @student, :clazz => @clazz}%>
 
 <%= link_to 'Show', @student %> |
 <%= link_to 'Back', rites_portal_students_path %>
