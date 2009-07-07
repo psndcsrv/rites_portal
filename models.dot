@@ -1,5 +1,5 @@
 digraph models_diagram {
-  "Course" [shape=Mrecord, label="{Course|uuid :string\lname :string\ldescription :string\lgrade_min :integer\lgrade_max :integer\lstatus :string\l}"]
+  "Course" [shape=Mrecord, label="{Course|uuid :string\lname :string\ldescription :string\lstatus :string\l}"]
 	"Semester" [shape=Mrecord, label="{Semester|uuid :string\lname :string\ldescription :string\lstart :datetime\lend :datetime\ldefaults ???\l}"]
 	"Clazz" [shape=Mrecord, label="{Clazz|uuid :string\lname :string\ldescription :string\lstart :datetime\lend :datetime\lclass_word :string\larchive_time :datetime\ldelete_time :datetime\lstatus :string}"]
 	"SchoolMembership" [shape=Mrecord, label="{SchoolMemberShip|start :datetime\lend :datetime\luser_type :string\lstudent_grade :string\l}"]
@@ -28,6 +28,7 @@ digraph models_diagram {
 	"Teacher" -> "GradeLevel" [arrowtail=diamond, arrowhead=diamond, dir=both]
 	"Teacher" -> "Subject" [arrowtail=none, arrowhead=diamond, dir=both]
 	"School" -> "GradeLevel" [arrowtail=none, arrowhead=diamond, dir=both]
+	"Course" -> "GradeLevel" [arrowtail=diamond, arrowhead=diamond, dir=both]
 	"School" -> "SensorInterface" [arrowtail=none, arrowhead=tee, dir=both]
 	"Student" -> "StudentClazz" [arrowtail=diamond, arrowhead=diamond, dir=both]
 	"Clazz" -> "StudentClazz" [arrowtail=diamond, arrowhead=diamond, dir=both]
