@@ -38,7 +38,7 @@ class RitesPortal::Learner < ActiveRecord::Base
     end
     options.delete(:nobundles)
     
-    if options[:author]
+    if options[:author] == true
       options["otrunk.view.author"] = true
       options.delete(:author)
     end
