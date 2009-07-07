@@ -1,6 +1,8 @@
 class RitesPortal::Offering < ActiveRecord::Base
   set_table_name :rites_portal_offerings
   
+  acts_as_replicatable
+  
   has_one :sds_config, :class_name => "RitesPortal::SdsConfig", :as => :configurable
   
   belongs_to :clazz, :class_name => "RitesPortal::Clazz", :foreign_key => "clazz_id"

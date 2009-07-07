@@ -1,6 +1,8 @@
 class RitesPortal::School < ActiveRecord::Base
   set_table_name :rites_portal_schools
   
+  acts_as_replicatable
+  
   belongs_to :district, :class_name => "RitesPortal::District", :foreign_key => "district_id"
   belongs_to :nces_school, :class_name => "RitesPortal::Nces06School", :foreign_key => "nces_school_id"
   

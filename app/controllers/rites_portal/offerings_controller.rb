@@ -18,9 +18,19 @@ class RitesPortal::OfferingsController < ApplicationController
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @offering }
+      format.jnlp {
+        # check if the user is a student in this offering's class
+        # create a learner for the user if it doesnt' exist
+        student = current_user.portal_student
+        learner = @offering.learners.find_by_student_id(student)
+        learner ||= @offering.learners.create( :student_id => student)
+        
+        # render a jnlp for this learner
+        render :partial => 'shared/jnlp_for_learner', :locals => {:learner => learner}
+      }
     end
   end
-
+  
   # GET /rites_portal_offerings/new
   # GET /rites_portal_offerings/new.xml
   def new
