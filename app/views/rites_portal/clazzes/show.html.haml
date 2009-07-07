@@ -1,0 +1,9 @@
+- field_set_tag 'name' do
+  = @clazz.name
+- field_set_tag 'description' do
+  = @clazz.description
+- field_set_tag 'semester' do
+  - if @clazz.semester
+    = @clazz.semester.name
+= link_to 'Edit', edit_rites_portal_clazz_path(@clazz)
+= link_to 'Back', rites_portal_clazzes_path

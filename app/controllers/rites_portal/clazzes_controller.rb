@@ -25,7 +25,6 @@ class RitesPortal::ClazzesController < ApplicationController
   # GET /rites_portal_clazzes/new.xml
   def new
     @clazz = RitesPortal::Clazz.new
-
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @clazz }
@@ -35,13 +34,14 @@ class RitesPortal::ClazzesController < ApplicationController
   # GET /rites_portal_clazzes/1/edit
   def edit
     @clazz = RitesPortal::Clazz.find(params[:id])
+    @semesters = RitesPortal::Semester.find(:all)
   end
 
   # POST /rites_portal_clazzes
   # POST /rites_portal_clazzes.xml
   def create
-    @clazz = RitesPortal::Clazz.new(params[:clazz])
-
+    @clazz = RitesPortal::Clazz.new(params[:rites_portal_clazz])
+    @semesters = RitesPortal::Semester.find(:all)
     respond_to do |format|
       if @clazz.save
         flash[:notice] = 'RitesPortal::Clazz was successfully created.'
@@ -58,9 +58,8 @@ class RitesPortal::ClazzesController < ApplicationController
   # PUT /rites_portal_clazzes/1.xml
   def update
     @clazz = RitesPortal::Clazz.find(params[:id])
-
     respond_to do |format|
-      if @clazz.update_attributes(params[:clazz])
+      if @clazz.update_attributes(params[:rites_portal_clazz])
         flash[:notice] = 'RitesPortal::Clazz was successfully updated.'
         format.html { redirect_to(@clazz) }
         format.xml  { head :ok }
