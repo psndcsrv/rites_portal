@@ -1,8 +1,7 @@
 class RitesPortal::Student < ActiveRecord::Base
   set_table_name :rites_portal_students
   
-  # FIXME This should get moved to User once User gets moved into the portal
-  has_one :sds_config, :class_name => "RitesPortal::SdsConfig", :as => :configurable
+  acts_as_replicatable
   
   belongs_to :user, :class_name => "User", :foreign_key => "user_id"
   belongs_to :grade_level, :class_name => "RitesPortal::GradeLevel", :foreign_key => "grade_level_id"

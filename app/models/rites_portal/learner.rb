@@ -1,6 +1,8 @@
 class RitesPortal::Learner < ActiveRecord::Base
   set_table_name :rites_portal_learners
   
+  acts_as_replicatable
+  
   has_one :sds_config, :class_name => "RitesPortal::SdsConfig", :as => :configurable
   
   belongs_to :student, :class_name => "RitesPortal::Student", :foreign_key => "student_id"
