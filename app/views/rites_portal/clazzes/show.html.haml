@@ -5,5 +5,7 @@
 - field_set_tag 'semester' do
   - if @clazz.semester
     = @clazz.semester.name
+- field_set_tag 'students' do
+  = render :partial => 'rites_portal/students/list_for_clazz', :locals => {:clazz => @clazz}
 = link_to 'Edit', edit_rites_portal_clazz_path(@clazz)
 = link_to 'Back', rites_portal_clazzes_path

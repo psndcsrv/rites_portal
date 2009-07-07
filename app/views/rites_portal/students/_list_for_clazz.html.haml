@@ -1,0 +1,21 @@
+= link_to 'Add Student', new_rites_portal_student_path(:clazz_id => clazz.id)
+%table
+  %tr
+    %td
+      Actions
+    %td
+      Student name
+    %td
+      Student login
+    %td
+      Grade level
+  - clazz.students.uniq.sort{|a,b| a.user.name <=> b.user.name}.each do |student|
+    %tr
+      %td
+        Remove | Edit
+      %td
+        = student.user.name
+      %td
+        = student.user.login
+      %td
+        = student.grade_level ? student.grade_level.name : "unknown"
