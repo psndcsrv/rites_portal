@@ -17,8 +17,9 @@ class RitesPortal::Learner < ActiveRecord::Base
   # and for the specified user.
   def create_sds_counterpart
     wid = RitesPortal::SdsConnect::Connect.create_workgroup(self.student.user.name, self.offering.sds_config.sds_id)
-    self.create_sds_config(:sds_id => wid)
+    config = self.create_sds_config(:sds_id => wid)
     RitesPortal::SdsConnect::Connect.create_workgroup_membership(wid, [self.student.user.sds_config.sds_id])
+    config
   end
   
   def sds_config_url(options = {})
