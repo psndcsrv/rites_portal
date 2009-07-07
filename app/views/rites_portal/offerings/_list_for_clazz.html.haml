@@ -1,0 +1,8 @@
+- clazz.offerings.each do |offering|
+  - if offering.runnable 
+    - if is_teacher
+      = render :partial => 'shared/runnable_for_teacher', :locals => {:runnable => offering.runnable}
+    - else
+      = render :partial => 'shared/runnable_for_student', :locals => {:runnable => offering.runnable}
+  - else
+    = "No runnable for this offering: #{offering.name}"

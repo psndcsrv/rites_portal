@@ -68,7 +68,7 @@ class RitesPortal::ClazzesController < ApplicationController
         format.xml  { render :xml => @clazz.errors, :status => :unprocessable_entity }
       end
     end
-  end
+  end  
 
   # DELETE /rites_portal_clazzes/1
   # DELETE /rites_portal_clazzes/1.xml
@@ -81,4 +81,32 @@ class RitesPortal::ClazzesController < ApplicationController
       format.xml  { head :ok }
     end
   end
+  
+  ## END OF CRUD METHODS
+  def edit_offerings
+    @clazz = RitesPortal::Clazz.find(params[:id])
+  end
+  
+  def add_offering
+    @clazz = RitesPortal::Clazz.find(params[:id])
+    dom_id = params[:dragged_dom_id]
+    container = params[:dropped_dom_id]
+    render :update do |page|
+      page << "var container = $('#{container}');"
+      page << "var element = $('#{dom_id}');"
+      page << "container.insert(element.remove());"
+    end
+  end
+  
+  def remove_offering
+    @clazz = RitesPortal::Clazz.find(params[:id])
+    dom_id = params[:dragged_dom_id]
+    container = params[:dropped_dom_id]
+    render :update do |page|
+      page << "var container = $('#{container}');"
+      page << "var element = $('#{dom_id}');"
+      page << "container.insert(element.remove());"
+    end  
+  end
+    
 end
