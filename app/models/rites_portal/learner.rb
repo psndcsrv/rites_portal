@@ -16,7 +16,43 @@ class RitesPortal::Learner < ActiveRecord::Base
   # Find or creates a learner for this sds runnable object
   # and for the specified user.
   def create_sds_counterpart
-    self.create_sds_config(:sds_id => RitesPortal::SdsConnect::Connect.create_workgroup(self.student.user.name, self.offering.sds_config.sds_id))
+    wid = RitesPortal::SdsConnect::Connect.create_workgroup(self.student.user.name, self.offering.sds_config.sds_id)
+    self.create_sds_config(:sds_id => wid)
+    RitesPortal::SdsConnect::Connect.create_workgroup_membership(wid, [self.student.user.sds_config.sds_id])
+  end
+  
+  def sds_config_url(options = {})
+    conn = RitesPortal::SdsConnect::Connect
+    options.merge({:savedata => false, :nobundles => false, :author => false}) {|k,o,n| o}
+    
+    config_url = "#{conn.offering_url(self.offering.sds_config.sds_id)}/config/#{self.sds_config.sds_id}/0"
+    
+    if options[:savedata] != true
+      config_url << "/view"
+    end
+    options.delete(:savedata)
+    
+    if options[:nobundles] == true
+      config_url << "/nobundles"
+    end
+    options.delete(:nobundles)
+    
+    if options[:author]
+      options["otrunk.view.author"] = true
+      options.delete(:author)
+    end
+    
+    if options.size > 0
+    options_arr = []
+      options.each do |k,v|
+        options_arr << "#{k}=#{v}"
+      end
+      options_str = options_arr.join("&")
+    
+      config_url << "?"
+      config_url << options_str
+    end
+    config_url
   end
   
   ###################################################
