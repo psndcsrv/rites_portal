@@ -270,7 +270,7 @@ private
     status = '.'
     nces_schools.each do |nces_school|
       leaid = nces_school.LEAID
-      nces_district = @district_model.find_by_sql("SELECT id from `#{@district_model.table_name}` WHERE `LEAID` LIKE '#{nces_school.LEAID}'")
+      nces_district = @district_model.find_by_sql("SELECT id from `#{@district_model.table_name}` WHERE `LEAID` LIKE '#{nces_school.LEAID}'").first
       if nces_district
         nces_school.nces_district_id = nces_district.id
         nces_school.save!
