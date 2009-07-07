@@ -1,0 +1,15 @@
+
+%table{:width => "95%",:valign => "top",:style=>"vertical-align:top;"}
+  %tr
+    %td{:width => "50%",:style=>"vertical-align:top;"}
+      Offerings for Class #{@clazz.name} 
+      #clazz_offerings.drop_target
+        = render :partial => "rites_portal/offerings/list_for_clazz", :locals => {:clazz => @clazz }
+    %td{:width => "50%",:style=>"vertical-align:top;"}
+      Available runnables
+      #offering_list.drop_target
+        = render :partial => "shared/offering_list"
+
+= drop_receiving_element 'clazz_offerings', :url=> {:action=>'add_offering'}, :with => "{dragged_dom_id: element.id, dropped_dom_id: 'clazz_offerings'}"
+= drop_receiving_element 'offering_list',  :url=> {:action=>'remove_offering'}, :with => "{dragged_dom_id: element.id, dropped_dom_id: 'offering_list'}"
+
