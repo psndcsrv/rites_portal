@@ -102,8 +102,6 @@ class RitesPortal::ClazzesController < ApplicationController
     @offering = RitesPortal::Offering.find_or_create_by_clazz_id_and_runnable_type_and_runnable_id(@clazz.id,runnable_type,runnable_id)
     if @offering
       @offering.save
-      @clazz.offerings << @offering
-      @clazz.save
       @clazz.reload
     end
     render :update do |page|
@@ -125,8 +123,6 @@ class RitesPortal::ClazzesController < ApplicationController
     runnable_type = runnable_parts[-2].classify
     @offering = RitesPortal::Offering.find_by_clazz_id_and_runnable_type_and_runnable_id(@clazz.id,runnable_type,runnable_id)
     if @offering
-      @clazz.offerings.remove(@offering)
-      @clazz.save
       @offering.destroy
       @clazz.reload
     end
