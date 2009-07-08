@@ -15,13 +15,15 @@ class RitesPortal::Student < ActiveRecord::Base
   
   has_many :clazzes, :through => :student_clazzes, :class_name => "RitesPortal::Clazz"
   
-  # FIXME not used right now... what should it generate?
-  def self.generate_student_email
+  # 
+  def self.generate_user_email
+    hash = UUIDTools::UUID.timestamp_create.to_s
+    "no-email-#{hash}@concord.org"
   end
   
   def self.generate_user_login(first_name, last_name)
     login = "#{first_name.downcase.gsub(/[^a-z0-9]/,'')}#{last_name[0..0].downcase}"
-    existing_users = User.find(:all, :conditions => "login RLIKE '#{login}[0-9]+$'", :order => :login)
+    existing_users = User.find(:all, :conditions => "login RLIKE '#{login}[0-9]*$'", :order => :login)
     if existing_users.size > 0
       login << "#{existing_users.size + 1}"
     end

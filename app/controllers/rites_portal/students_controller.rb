@@ -48,16 +48,23 @@ class RitesPortal::StudentsController < ApplicationController
     begin
       user_params = params[:user]
       user_params[:login] = RitesPortal::Student.generate_user_login(user_params[:first_name], user_params[:last_name])
-      # user_params[:email] = RitesPortal::Student.generate_user_email()
-      @user = RitesPortal::User.create!(user_params)
+      user_params[:email] = RitesPortal::Student.generate_user_email
+      @user = User.new(user_params)
+      @user.save!
       @user.register!
       @user.activate!
 
       student_params = params[:student]
-      student_params[:name] = @user.first_name + " " + @user.last_name
+      student_params ||= {}
+      student_params[:name] = "#{@user.first_name} #{@user.last_name}"
+      student_params[:user_id] = @user.id
       @student = RitesPortal::Student.new(student_params)
-      if params[:clazz_id]
+      if params[:clazz][:id]
         @clazz = RitesPortal::Clazz.find(params[:clazz][:id])
+      end
+      
+      if params[:clazz][:class_word]
+        @clazz = RitesPortal::Clazz.find_by_class_word(params[:clazz][:class_word])
       end
       @student.save!
       
@@ -66,7 +73,8 @@ class RitesPortal::StudentsController < ApplicationController
       end
       
       success = true
-    rescue
+    rescue => e
+      logger.warn("Failed to create Student: #{e}\n#{e.backtrace.join("\n")}")
     end
     respond_to do |format|
       if success
@@ -74,7 +82,14 @@ class RitesPortal::StudentsController < ApplicationController
         format.html { redirect_to(@student) }
         format.xml  { render :xml => @student, :status => :created, :location => @student }
       else
-        format.html { render :action => "new" }
+        if ! @student
+          @student = RitesPortal::Student.new
+        end
+        if params[:clazz][:class_word]
+          format.html { render :action => "signup" }
+        else
+          format.html { render :action => "new" }
+        end
         format.xml  { render :xml => @student.errors, :status => :unprocessable_entity }
       end
     end
