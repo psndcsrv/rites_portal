@@ -13,4 +13,6 @@ class RitesPortal::Teacher < ActiveRecord::Base
   has_many :clazzes, :class_name => "RitesPortal::Clazz", :foreign_key => "teacher_id"
   
   has_and_belongs_to_many :grade_levels, :join_table => "rites_portal_grade_levels_teachers", :class_name => "RitesPortal::GradeLevel"
+  
+  [:name, :first_name, :last_name, :email, :vendor_interface].each { |m| delegate m, :to => :user }
 end

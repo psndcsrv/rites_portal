@@ -8,6 +8,8 @@ class RitesPortal::Learner < ActiveRecord::Base
   belongs_to :student, :class_name => "RitesPortal::Student", :foreign_key => "student_id"
   belongs_to :offering, :class_name => "RitesPortal::Offering", :foreign_key => "offering_id"
   
+  [:name, :first_name, :last_name, :email, :vendor_interface].each { |m| delegate m, :to => :student }
+  
   ###################################################
   ### SDS Specific code
   ###################################################

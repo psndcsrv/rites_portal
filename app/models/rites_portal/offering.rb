@@ -10,6 +10,8 @@ class RitesPortal::Offering < ActiveRecord::Base
   
   has_many :learners, :class_name => "RitesPortal::Learner", :foreign_key => "offering_id"
   
+  [:name, :description].each { |m| delegate m, :to => :runnable }
+  
   ###################################################
   ### SDS Specific code
   ###################################################
