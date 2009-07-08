@@ -1,12 +1,10 @@
 tzone:
-  id: 1
   uuid: 319E78AE-4778-4078-A8EC-849BFA6A71A5
   name: Twilight Zone
   description: Anything goes experimental
   nces_district_id: 1
 
 ri:
-  id: 2
   uuid: 5725B12B-2536-4C8C-9D0B-1B1A93F939F6
   name: Little Rhody
   description: Ultimate challenge

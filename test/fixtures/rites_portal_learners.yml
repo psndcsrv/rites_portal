@@ -1,9 +1,5 @@
 marcus_circuit_1:
   uuid: A6ECEB9C-48C9-408D-86DD-5D5D83C2848D
-  name: Electronics learner 1
-  description: Learner Extraordinaire
 
 paul_circuit_1:
   uuid: 9C39744E-DF8C-4CB9-A097-2BF9FFC1C6CB
-  name: Electronics learner 2
-  description: Learner Prossimo

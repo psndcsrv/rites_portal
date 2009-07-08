@@ -123,19 +123,22 @@ private
   end
   
   def process_courses(courses, schools)
-    courses['electronics_1'].school = schools['hogwarts']
-    courses['biology_1'].school = schools['hogwarts']
+    courses['elem_elec'].school = schools['hogwarts']
+    courses['evolution'].school = schools['hogwarts']
     courses.each { |key, course| courses[key] = save_rec(course) }
   end
   
   def process_classes(classes, courses, semesters, teachers, students)
-    classes['electronics_1_1'].course = courses['electronics_1']
-    classes['electronics_1_1'].teacher = teachers['grigory']
-    classes['electronics_1_1'].semester = semesters['hogwarts_fall_2009']
-    classes['electronics_1_1'].students << students['marcus']      
-    classes['biology_1_1'].course = courses['biology_1']
-    classes['biology_1_1'].teacher = teachers['homer']
-    classes['biology_1_1'].semester = semesters['hogwarts_fall_2009']
+    classes['elem_elec_1'].course = courses['elem_elec']
+    classes['elem_elec_1'].teacher = teachers['grigory']
+    classes['elem_elec_1'].semester = semesters['hogwarts_fall_2009']
+    classes['elem_elec_1'].students << students['marcus']      
+    classes['elem_elec_2'].course = courses['elem_elec']
+    classes['elem_elec_2'].teacher = teachers['grigory']
+    classes['elem_elec_2'].semester = semesters['hogwarts_fall_2009']
+    classes['evolution_1'].course = courses['evolution']
+    classes['evolution_1'].teacher = teachers['homer']
+    classes['evolution_1'].semester = semesters['hogwarts_fall_2009']
     classes.each { |key, c| classes[key] = save_rec(c) }
   end
   
@@ -149,9 +152,9 @@ private
   
   def process_offerings(offerings, classes, investigations)
     offerings['circuit_1'].runnable = investigations['plant_1']
-    offerings['circuit_1'].clazz = classes['electronics_1_1']
+    offerings['circuit_1'].clazz = classes['elem_elec_1']
     offerings['plant_1'].runnable = investigations['plant_1']
-    offerings['plant_1'].clazz = classes['biology_1_1']
+    offerings['plant_1'].clazz = classes['evolution_1']
     offerings.each { |key, offering| offerings[key] = save_rec(offering) }
   end    
   
