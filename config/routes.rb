@@ -15,23 +15,25 @@ ActionController::Routing::Routes.draw do |map|
       scaff.resources :subjects, :active_scaffold => true 
       scaff.resources :teachers, :active_scaffold => true
     end
-    rites_portal.resources :clazzes, :as => 'classes', :active_scaffold => false, :member => {
+    rites_portal.resources :clazzes, :as => 'classes', :member => {
         :add_offering => [:get,:post],
         :remove_offering => [:get, :post],
         :edit_offerings => [:get,:post]
     } 
-    rites_portal.resources :courses, :active_scaffold => false
-    rites_portal.resources :districts, :active_scaffold => true 
-    rites_portal.resources :grade_levels, :active_scaffold => true 
-    rites_portal.resources :learners, :active_scaffold => true 
-    rites_portal.resources :offerings, :active_scaffold => true 
-    rites_portal.resources :schools, :active_scaffold => true 
-    rites_portal.resources :school_memberships, :active_scaffold => true 
-    rites_portal.resources :semesters, :active_scaffold => true 
-    rites_portal.resources :students, :active_scaffold => true 
-    rites_portal.resources :student_clazzes, :as => 'student_classes', :active_scaffold => true 
-    rites_portal.resources :subjects, :active_scaffold => true 
-    rites_portal.resources :teachers, :active_scaffold => true
+    rites_portal.resources :courses
+    rites_portal.resources :districts
+    rites_portal.resources :grade_levels
+    rites_portal.resources :learners
+    rites_portal.resources :offerings
+    rites_portal.resources :schools
+    rites_portal.resources :school_memberships
+    rites_portal.resources :semesters
+    rites_portal.resources :students, :collection => {
+      :signup => [:get]
+    }
+    rites_portal.resources :student_clazzes, :as => 'student_classes'
+    rites_portal.resources :subjects
+    rites_portal.resources :teachers
     
     rites_portal.home 'readme', :controller => 'home', :action => 'readme'
     
