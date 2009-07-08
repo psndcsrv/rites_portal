@@ -47,7 +47,7 @@ class MockupDataLoader
     process_courses(courses, schools)
     
     classes = load_from_yaml(@classes_path, RitesPortal::Clazz)
-    process_classes(classes, courses, semesters, teachers)
+    process_classes(classes, courses, semesters, teachers, students)
     
     offerings = load_from_yaml(@offerings_path, RitesPortal::Offering)
     process_offerings(offerings, classes, investigations)
@@ -82,9 +82,10 @@ private
       users[key].roles << roles['teacher']
     end
     users.each do |key, user|
-      user.register
-      user.activate
       rec = save_rec(user)
+      rec.register! if rec.state == 'passive' 
+      rec.activate! if rec.state == 'pending'
+      rec.save!
       users[key] = rec
     end
   end
@@ -97,7 +98,7 @@ private
     students['paul'].grade_level = grade_levels['g_8']
     students['maria'].grade_level = grade_levels['g_2']
     students['thomas'].grade_level = grade_levels['g_2']
-    students.values.each { |s| save_rec(s) }
+    students.each { |key, s| students[key] = save_rec(s) }
   end
   
   def process_teachers(teachers, users)
@@ -107,33 +108,34 @@ private
   end    
   
   def process_districts(districts)
-    districts.values.each { |d| save_rec(d) }
+    districts.each { |key, d| districts[key] = save_rec(d) }
   end
   
   def process_schools(schools, districts)
     schools['hogwarts'].district = districts['tzone']
-    schools.values.each { |school| save_rec(school) }
+    schools.each { |key, school| schools[key] = save_rec(school) }
   end
   
   def process_semesters(semesters, schools)
     semesters['hogwarts_fall_2009'].school = schools['hogwarts']
-    semesters.values.each { |sem| save_rec(sem) }
+    semesters.each { |key, sem| semesters[key] = save_rec(sem) }
   end
   
   def process_courses(courses, schools)
     courses['electronics_1'].school = schools['hogwarts']
     courses['biology_1'].school = schools['hogwarts']
-    courses.values.each { |course| save_rec(course) }
+    courses.each { |key, course| courses[key] = save_rec(course) }
   end
   
-  def process_classes(classes, courses, semesters, teachers)
+  def process_classes(classes, courses, semesters, teachers, students)
     classes['electronics_1_1'].course = courses['electronics_1']
     classes['electronics_1_1'].teacher = teachers['grigory']
     classes['electronics_1_1'].semester = semesters['hogwarts_fall_2009']
+    classes['electronics_1_1'].students << students['marcus']      
     classes['biology_1_1'].course = courses['biology_1']
     classes['biology_1_1'].teacher = teachers['homer']
     classes['biology_1_1'].semester = semesters['hogwarts_fall_2009']
-    classes.values.each { |c| save_rec(c) }
+    classes.each { |key, c| classes[key] = save_rec(c) }
   end
   
   def process_learners(learners, students, offerings)
@@ -141,7 +143,7 @@ private
     learners['marcus_circuit_1'].offering = offerings['circuit_1'] 
     learners['paul_circuit_1'].student = students['paul']
     learners['paul_circuit_1'].offering = offerings['circuit_1']
-    learners.values.each { |learner| save_rec(learner) }
+    learners.each { |key, learner| learners[key] = save_rec(learner) }
   end
   
   def process_offerings(offerings, classes, investigations)
@@ -149,7 +151,7 @@ private
     offerings['circuit_1'].clazz = classes['electronics_1_1']
     offerings['plant_1'].runnable = investigations['plant_1']
     offerings['plant_1'].clazz = classes['biology_1_1']
-    offerings.values.each { |offering| save_rec(offering) }
+    offerings.each { |key, offering| offerings[key] = save_rec(offering) }
   end    
   
   def load_roles
@@ -182,11 +184,11 @@ private
   end
   
   def process_roles(roles)
-    roles.values.each { |role| save_rec(role) }
+    roles.each { |key, role| roles[key] = save_rec(role) }
   end
   
   def process_grade_levels(grade_levels)
-    grade_levels.values.each { |level| save_rec(level) }
+    grade_levels.each { |key, level| grade_levels[key] = save_rec(level) }
   end
 
   def load_investigations
@@ -202,10 +204,7 @@ private
   
   def process_investigations(invs, users)
     invs['plant_1'].user = users['grigory']
-    puts "INV user=#{users['grigory'].inspect}"
-    puts "INV user=#{invs['plant_1'].user}"
-    puts "INVS=#{invs.inspect}"
-    invs.values.each { |inv| save_rec(inv) }
+    invs.each { |key, inv| invs[key] = save_rec(inv) }
   end
   
   def save_rec(rec)
