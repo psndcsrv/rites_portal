@@ -59,11 +59,15 @@ class MockupDataLoader
 private
 
   def load_from_yaml(yml_path, model)
-    #model.delete_all
     records = {}
     yaml = YAML.load_file(yml_path)
     yaml.each do |name, attributes|
       records[name] = model.new(attributes)
+      if model == User
+        ## FIXME: User.new(attributes) doesn't pick up uuid
+        ## Don't know why. Setting it directly:
+        records[name].uuid = attributes['uuid']
+      end
     end
     records
   end
@@ -77,10 +81,11 @@ private
     teachers.each do |key|
       users[key].roles << roles['teacher']
     end
-    users.values.each do |user|
+    users.each do |key, user|
       user.register
       user.activate
-      user.save!  
+      rec = save_rec(user)
+      users[key] = rec
     end
   end
   
@@ -92,7 +97,7 @@ private
     students['paul'].grade_level = grade_levels['g_8']
     students['maria'].grade_level = grade_levels['g_2']
     students['thomas'].grade_level = grade_levels['g_2']
-    students.values.each { |s| s.save! }
+    students.values.each { |s| save_rec(s) }
   end
   
   def process_teachers(teachers, users)
@@ -102,23 +107,23 @@ private
   end    
   
   def process_districts(districts)
-    districts.values.each { |d| d.save! }
+    districts.values.each { |d| save_rec(d) }
   end
   
   def process_schools(schools, districts)
     schools['hogwarts'].district = districts['tzone']
-    schools.values.each { |school| school.save! }
+    schools.values.each { |school| save_rec(school) }
   end
   
   def process_semesters(semesters, schools)
     semesters['hogwarts_fall_2009'].school = schools['hogwarts']
-    semesters.values.each { |sem| sem.save! }
+    semesters.values.each { |sem| save_rec(sem) }
   end
   
   def process_courses(courses, schools)
     courses['electronics_1'].school = schools['hogwarts']
     courses['biology_1'].school = schools['hogwarts']
-    courses.values.each { |course| course.save! }
+    courses.values.each { |course| save_rec(course) }
   end
   
   def process_classes(classes, courses, semesters, teachers)
@@ -128,7 +133,7 @@ private
     classes['biology_1_1'].course = courses['biology_1']
     classes['biology_1_1'].teacher = teachers['homer']
     classes['biology_1_1'].semester = semesters['hogwarts_fall_2009']
-    classes.values.each { |c| c.save! }
+    classes.values.each { |c| save_rec(c) }
   end
   
   def process_learners(learners, students, offerings)
@@ -136,7 +141,7 @@ private
     learners['marcus_circuit_1'].offering = offerings['circuit_1'] 
     learners['paul_circuit_1'].student = students['paul']
     learners['paul_circuit_1'].offering = offerings['circuit_1']
-    learners.values.each { |learner| learner.save! }
+    learners.values.each { |learner| save_rec(learner) }
   end
   
   def process_offerings(offerings, classes, investigations)
@@ -144,7 +149,7 @@ private
     offerings['circuit_1'].clazz = classes['electronics_1_1']
     offerings['plant_1'].runnable = investigations['plant_1']
     offerings['plant_1'].clazz = classes['biology_1_1']
-    offerings.values.each { |offering| offering.save! }
+    offerings.values.each { |offering| save_rec(offering) }
   end    
   
   def load_roles
@@ -177,11 +182,11 @@ private
   end
   
   def process_roles(roles)
-    roles.values.each { |role| role.save! }
+    roles.values.each { |role| save_rec(role) }
   end
   
   def process_grade_levels(grade_levels)
-    grade_levels.values.each { |level| level.save! }
+    grade_levels.values.each { |level| save_rec(level) }
   end
 
   def load_investigations
@@ -197,7 +202,21 @@ private
   
   def process_investigations(invs, users)
     invs['plant_1'].user = users['grigory']
-    invs.values.each { |inv| inv.save! }
+    puts "INV user=#{users['grigory'].inspect}"
+    puts "INV user=#{invs['plant_1'].user}"
+    puts "INVS=#{invs.inspect}"
+    invs.values.each { |inv| save_rec(inv) }
+  end
+  
+  def save_rec(rec)
+    old_rec = rec.class.find_by_uuid(rec.uuid)
+    if old_rec
+      old_rec.update_attributes(rec.attributes)
+      return old_rec
+    else
+      rec.save!
+      return rec
+    end
   end
   
 end
