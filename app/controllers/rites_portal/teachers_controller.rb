@@ -40,18 +40,25 @@ class RitesPortal::TeachersController < ApplicationController
   # POST /rites_portal_teachers
   # POST /rites_portal_teachers.xml
   def create
-    @teacher = RitesPortal::Teacher.new(params[:teacher])
-
-    respond_to do |format|
-      if @teacher.save
-        flash[:notice] = 'RitesPortal::Teacher was successfully created.'
-        format.html { redirect_to(@teacher) }
-        format.xml  { render :xml => @teacher, :status => :created, :location => @teacher }
-      else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @teacher.errors, :status => :unprocessable_entity }
-      end
+    @user = User.new(params[:user])
+    if @user && @user.valid?
+      @user.register!
     end
+    
+    @teacher = RitesPortal::Teacher.new(params[:teacher])
+    @teacher.user = @user
+    
+    if @user.errors.empty? && @teacher.save
+      # will redirect:
+      @user.roles << Role.find_by_title('teacher')
+      @user.save 
+      
+      successful_creation(@user)    
+    else 
+      # will redirect:
+      failed_creation
+    end
+    
   end
 
   # PUT /rites_portal_teachers/1
@@ -82,4 +89,20 @@ class RitesPortal::TeachersController < ApplicationController
       format.xml  { head :ok }
     end
   end
+  
+  def successful_creation(user)
+    flash[:notice] = "Thanks for signing up!"
+    flash[:notice] << " We're sending you an email with your activation code."
+    redirect_back_or_default(root_path)
+  end
+  
+  def failed_creation(message = 'Sorry, there was an error creating your account')
+    # force the current_user to anonymous, because we have not successfully created an account yet.
+    # edge case, which we might need a more integrated solution for??
+    self.current_user = User.anonymous
+    flash[:error] = message
+    render :action => :new
+  end
+  
+  
 end
