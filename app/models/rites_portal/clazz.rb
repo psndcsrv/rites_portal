@@ -11,4 +11,7 @@ class RitesPortal::Clazz < ActiveRecord::Base
   has_many :student_clazzes, :class_name => "RitesPortal::StudentClazz", :foreign_key => "clazz_id"
   
   has_many :students, :through => :student_clazzes, :class_name => "RitesPortal::Student"
+  
+  validates_presence_of :class_word
+  validates_uniqueness_of :class_word
 end
