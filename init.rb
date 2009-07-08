@@ -1,6 +1,6 @@
 # Include hook code here
 require File.join(File.dirname(__FILE__), '/lib/rites_portal.rb')
-require File.join(File.dirname(__FILE__), '/lib/sds_connect.rb')
+require File.join(File.dirname(__FILE__), '/lib/rites_portal/sds_connect.rb')
 
 # Access this class so that the has_many_polymorphs code will get called and set up the associations in Teacher and Student
 RitesPortal::School

@@ -117,6 +117,7 @@ module RitesPortal::SdsConnect
     # pass: name, jnlp_id, curnit_id
     # returns offering_id
     def self.create_offering(name, jnlp_id, curnit_id)
+      puts @@config
       name.gsub!("&", "&amp;")
       name.gsub!("<", "&lt;")
       name.gsub!(">", "&gt;")
@@ -305,4 +306,5 @@ module RitesPortal::SdsConnect
       end
     end     
   end
+  Connect.setup()
 end
