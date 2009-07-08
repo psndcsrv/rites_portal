@@ -104,6 +104,7 @@ private
   def process_teachers(teachers, users)
     teachers.each do |key, teacher|
       teacher.user = users[key]
+      teachers[key] = save_rec(teacher)
     end 
   end    
   
