@@ -1,11 +1,11 @@
-course1:
-  name: Epistemology & Electronics
+electronics_1:
+  uuid: ADD80CB7-43EB-4559-AAB9-794344192C92
+  name: Epistemology of Electronics
   description: Can we really understand electrons when we don't see them?
-  school_id: 1
   status: open
   
-course2:
+biology_1:
+  uuid: 0BD55E07-E97A-4A9A-8B17-AC74A854E52E
   name: Revolution Edginess
   description: Entropy of power equilibrium
-  school_id: 1
   status: open
