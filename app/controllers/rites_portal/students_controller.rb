@@ -78,8 +78,16 @@ class RitesPortal::StudentsController < ApplicationController
     end
     respond_to do |format|
       if success
-        flash[:notice] = 'RitesPortal::Student was successfully created.'
-        format.html { redirect_to(@student) }
+        flash[:notice] = 'Student was successfully created.'
+        if @clazz
+          if params[:clazz][:class_word]
+            format.html { render 'signup_success' }
+          else
+            format.html { redirect_to(@clazz) }
+          end
+        else
+          format.html { redirect_to(@student) }
+        end
         format.xml  { render :xml => @student, :status => :created, :location => @student }
       else
         if ! @student
