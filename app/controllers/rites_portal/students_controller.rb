@@ -50,6 +50,8 @@ class RitesPortal::StudentsController < ApplicationController
       user_params[:login] = RitesPortal::Student.generate_user_login(user_params[:first_name], user_params[:last_name])
       user_params[:email] = RitesPortal::Student.generate_user_email
       @user = User.new(user_params)
+      # temporarily disable sending email notifications for state change events
+      @user.skip_notifications = true
       @user.save!
       @user.register!
       @user.activate!

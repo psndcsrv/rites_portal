@@ -5,6 +5,8 @@ class User < ActiveRecord::Base
   include Authentication::ByPassword
   include Authentication::ByCookieToken
   include Authorization::AasmRoles
+  
+  attr_accessor :skip_notifications
 
   # Validations
   
