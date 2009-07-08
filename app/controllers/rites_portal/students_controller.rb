@@ -48,7 +48,7 @@ class RitesPortal::StudentsController < ApplicationController
     begin
       user_params = params[:user]
       user_params[:login] = RitesPortal::Student.generate_user_login(user_params[:first_name], user_params[:last_name])
-      user_params[:email] = RitesPortal::Student.generate_user_email()
+      # user_params[:email] = RitesPortal::Student.generate_user_email()
       @user = RitesPortal::User.create!(user_params)
       @user.register!
       @user.activate!
@@ -108,4 +108,15 @@ class RitesPortal::StudentsController < ApplicationController
       format.xml  { head :ok }
     end
   end
+  
+  # GET /rites_portal_students/signup
+  # GET /rites_portal_students/signup.xml
+  def signup
+    @student = RitesPortal::Student.new
+    @user = User.new
+    respond_to do |format|
+      format.html # new.html.erb
+      format.xml  { render :xml => @student }
+    end
+  end 
 end

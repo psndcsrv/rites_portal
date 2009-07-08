@@ -1,20 +1,3 @@
-admin:
-  login: admin
-  first_name: Admino
-  last_name: Administralli
-  email: pipi_u1@concord.org
-  password: 'password'
-  password_confirmation: 'password'
-  salt: 'KCl'
-  remember_token: remember_admin
-  activation_code: activate_admin
-  state: active
-  remember_token_expires_at: 2010-10-27 00:00
-  activated_at: 2009-05-01 00:00
-  deleted_at: nil
-  uuid: C0133A74-1712-49BA-A07A-6B9D9238ED99
-  vendor_interface_id: 1
-
 marcus:
   login: maurelius
   first_name: Marcus

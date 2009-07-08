@@ -25,6 +25,10 @@ class RitesPortal::ClazzesController < ApplicationController
   # GET /rites_portal_clazzes/new.xml
   def new
     @clazz = RitesPortal::Clazz.new
+    @semesters = RitesPortal::Semester.find(:all)
+    if params[:teacher_id]
+      @clazz.teacher = RitesPortal::Teacher.find(params[:teacher_id])
+    end
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @clazz }
