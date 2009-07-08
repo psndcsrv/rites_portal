@@ -3,13 +3,15 @@
   - field_set_tag 'name' do
     First: #{text_field :user, :first_name, {}}
     Last: #{text_field :user, :last_name, {}}
-  - field_set_tag 'description' do
-    = f.text_area :description
   - field_set_tag 'password' do
     Password: #{password_field :user, :password, {}}
     Password again: #{password_field :user, :password_confirmation, {}}
-  - field_set_tag 'grade level' do
-    = f.collection_select(:grade_level_id, (current_user.portal_teacher ? current_user.portal_teacher.schools.collect{|s| s.grade_levels}.flatten.uniq : []), :id, :name, options ={:prompt => "-Select a grade level"}, :class =>"string")
-  - if @clazz
-    = hidden_field :clazz, :id, {}
+  - if signup
+    - field_set_tag 'class word' do
+      = text_field :clazz, :class_word, {}
+  - else
+    - field_set_tag 'grade level' do
+      = f.collection_select(:grade_level_id, (current_user.portal_teacher ? current_user.portal_teacher.schools.collect{|s| s.grade_levels}.flatten.uniq : []), :id, :name, options ={:prompt => "-Select a grade level"}, :class =>"string")
+    - if @clazz
+      = hidden_field :clazz, :id, {}
   = f.submit 'Submit'
