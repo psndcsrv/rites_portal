@@ -59,8 +59,8 @@ class MockupDataLoader
 private
 
   def load_from_yaml(yml_path, model)
+    #model.delete_all
     records = {}
-    model.delete_all
     yaml = YAML.load_file(yml_path)
     yaml.each do |name, attributes|
       records[name] = model.new(attributes)
