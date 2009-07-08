@@ -1,15 +1,24 @@
-electronics_1_1:
+elem_elec_1:
   uuid: 81519D93-5D0C-46E7-9310-5EB4BD767751
-  name: Epistemology of Electronics (Afternoon)
+  name: Elementary Electronics (Afternoon)
   description: Afternoon class
-  class_word: electron
+  class_word: electron_pm
   status: open
   start_time: 2009-07-01 15:00
-  end_time: 2009-07-01 16:00
+  end_time: 2009-07-01 16:45
 
-biology_1_1:
+elem_elec_2:
+  uuid: E6027166-F7F1-40C2-B908-BC34B51B3E1E
+  name: Elementary Electronics (Morning)
+  description: Morning class
+  class_word: electron_am
+  status: open
+  start_time: 2009-07-01 09:00
+  end_time: 2009-07-01 10:45
+  
+evolution_1:
   uuid: 872BE0F5-24D1-4365-AAB2-D2E55EE9BDF0
-  name: Revolution Edginess Section 1
+  name: Revolution Edginess Summer
   description: Section 1 (T, Th)
   class_word: evolution
   status: archived
