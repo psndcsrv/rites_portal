@@ -1,13 +1,9 @@
 circuit_1:
   uuid: AE015AC7-57EB-4299-A9F2-9488A81E9867
-  name: Circuit build-o-rama
-  description: DIY electronic circuit
   status: active
   runnable_type: Investigation
 
 plant_1:
   uuid: 662A8F56-C174-4E6F-9994-600CBA74CE08
-  name: Photosynthesis
-  description: How plants get food
   status: active
   runnable_type: Investigation

@@ -1,24 +1,12 @@
 marcus:
   uuid: C8F1D9E9-57BE-42F8-A734-2591DAB565F7
-  name: Marcus Aurelius
-  description: Model thinker
-  grade_level_id: 8
 
 paul:
   uuid: E7F0C5EC-C435-460B-A7F9-083A0B69418A
-  name: Paul Dirac
-  description: Infinitesimal burst of talent
-  grade_level_id: 8
 
 maria:
   uuid: E38A4E16-53D7-44E4-9E64-A03BB92F5851
-  name: Maria Callas
-  description: Diva genius
-  grade_level_id: 2
 
 thomas:
   uuid: 6D025DB3-0C71-4E78-BC3B-5C1D13E83C2B
-  name: Thomas A. Edison
-  description: Movtivated seeker
-  grade_level_id: 2
 
