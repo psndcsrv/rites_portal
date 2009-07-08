@@ -87,10 +87,25 @@ class RitesPortal::ClazzesController < ApplicationController
     @clazz = RitesPortal::Clazz.find(params[:id])
   end
   
+  # HACK:
+  # TODO: (IMPORTANT:) This  method is currenlty only for ajax requests, and uses dom_ids 
+  # TODO: to infer runnables. Rewrite this, so that the params are less JS/DOM specific..
   def add_offering
     @clazz = RitesPortal::Clazz.find(params[:id])
     dom_id = params[:dragged_dom_id]
     container = params[:dropped_dom_id]
+    dom_id = params[:dragged_dom_id]
+    container = params[:dropped_dom_id]
+    runnable_parts = dom_id.split("_")
+    runnable_id = runnable_parts[-1]
+    runnable_type = runnable_parts[-2].classify
+    @offering = RitesPortal::Offering.find_or_create_by_clazz_id_and_runnable_type_and_runnable_id(@clazz.id,runnable_type,runnable_id)
+    if @offering
+      @offering.save
+      @clazz.offerings << @offering
+      @clazz.save
+      @clazz.reload
+    end
     render :update do |page|
       page << "var container = $('#{container}');"
       page << "var element = $('#{dom_id}');"
@@ -98,10 +113,23 @@ class RitesPortal::ClazzesController < ApplicationController
     end
   end
   
+  # HACK:
+  # TODO: (IMPORTANT:) This  method is currenlty only for ajax requests, and uses dom_ids 
+  # TODO: to infer runnables. Rewrite this, so that the params are less JS/DOM specific..
   def remove_offering
     @clazz = RitesPortal::Clazz.find(params[:id])
     dom_id = params[:dragged_dom_id]
     container = params[:dropped_dom_id]
+    runnable_parts = dom_id.split("_")
+    runnable_id = runnable_parts[-1]
+    runnable_type = runnable_parts[-2].classify
+    @offering = RitesPortal::Offering.find_by_clazz_id_and_runnable_type_and_runnable_id(@clazz.id,runnable_type,runnable_id)
+    if @offering
+      @clazz.offerings.remove(@offering)
+      @clazz.save
+      @offering.destroy
+      @clazz.reload
+    end
     render :update do |page|
       page << "var container = $('#{container}');"
       page << "var element = $('#{dom_id}');"
