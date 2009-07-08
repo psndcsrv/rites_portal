@@ -1,14 +1,14 @@
-t1:
+grigory:
+  uuid: F768E54F-323A-45A5-8A64-A8C61C197388
   name: Grigory Rasputin
   description: Dubious influence
-  user_id: 101
 
-t2:
+john:
+  uuid: 5B74CBDD-FD1B-4865-829D-07B47528099F
   name: John von Neumann
   description: Classified
-  user_id: 102
 
-t3:
+homer:
+  uuid: 031925B8-3FD7-40AF-8AD8-026111CD933F
   name: Homer Simpson
   description: Nice guy
-  user_id: 103

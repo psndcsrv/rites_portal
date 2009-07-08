@@ -1,7 +1,5 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-
-# one:
-#   column: value
-#
-# two:
-#   column: value
+hogwarts:
+  uuid: 61DEFDFD-26C5-4351-9D89-95CEC2E0C456
+  name: Hogwarts Academy
+  description: Wiz Prep
+  nces_school_id: 1
