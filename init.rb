@@ -2,7 +2,9 @@
 require File.join(File.dirname(__FILE__), '/lib/rites_portal.rb')
 require File.join(File.dirname(__FILE__), '/lib/sds_connect.rb')
 
+# Access this class so that the has_many_polymorphs code will get called and set up the associations in Teacher and Student
 RitesPortal::School
+
 RitesPortal::SdsConnect::Connect.setup
 
 # Using a separate DB isn't going to work because of the various join tables we'll have to make to the existing app's db
