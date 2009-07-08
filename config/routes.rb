@@ -15,7 +15,7 @@ ActionController::Routing::Routes.draw do |map|
       scaff.resources :subjects, :active_scaffold => true 
       scaff.resources :teachers, :active_scaffold => true
     end
-    rites_portal.resources :clazzes, :active_scaffold => false, :member => {
+    rites_portal.resources :clazzes, :as => 'classes', :active_scaffold => false, :member => {
         :add_offering => [:get,:post],
         :remove_offering => [:get, :post],
         :edit_offerings => [:get,:post]
@@ -29,7 +29,7 @@ ActionController::Routing::Routes.draw do |map|
     rites_portal.resources :school_memberships, :active_scaffold => true 
     rites_portal.resources :semesters, :active_scaffold => true 
     rites_portal.resources :students, :active_scaffold => true 
-    rites_portal.resources :student_clazzes, :active_scaffold => true 
+    rites_portal.resources :student_clazzes, :as => 'student_classes', :active_scaffold => true 
     rites_portal.resources :subjects, :active_scaffold => true 
     rites_portal.resources :teachers, :active_scaffold => true
     

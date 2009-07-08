@@ -5,4 +5,5 @@
     = f.text_area :description
   - field_set_tag 'semester' do
     = f.collection_select(:semester_id, @semesters, :id, :name, options ={:prompt => "-Select a semester"}, :class =>"string") 
+  = f.hidden_field :teacher_id
   = f.submit 'Create it '

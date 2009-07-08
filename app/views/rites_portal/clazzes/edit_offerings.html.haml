@@ -4,7 +4,7 @@
     %td{:width => "50%",:style=>"vertical-align:top;"}
       Offerings for Class #{@clazz.name} 
       #clazz_offerings.drop_target
-        = render :partial => "rites_portal/offerings/list_for_clazz", :locals => {:clazz => @clazz }
+        = render :partial => "rites_portal/offerings/list_for_clazz", :locals => {:clazz => @clazz, :is_teacher => "true" }
     %td{:width => "50%",:style=>"vertical-align:top;"}
       Available runnables
       #offering_list.drop_target
