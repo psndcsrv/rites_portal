@@ -42,6 +42,7 @@ class RitesPortal::TeachersController < ApplicationController
   def create
     @user = User.new(params[:user])
     if @user && @user.valid?
+      @user.save
       @user.register!
     end
     
@@ -50,7 +51,6 @@ class RitesPortal::TeachersController < ApplicationController
     
     if @user.errors.empty? && @teacher.save
       # will redirect:
-      @user.roles << Role.find_by_title('teacher')
       @user.save 
       
       successful_creation(@user)    
