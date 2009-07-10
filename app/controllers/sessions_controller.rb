@@ -21,6 +21,7 @@ class SessionsController < ApplicationController
     user = User.authenticate(params[:login], params[:password])
     if user
       self.current_user = user
+      session[:original_user_id] = current_user.id
       successful_login
     else
       note_failed_signin

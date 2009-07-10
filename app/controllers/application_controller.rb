@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
   filter_parameter_logging :password, :password_confirmation
     
   before_filter :check_user
+  before_filter :original_user
   
   def self.active_scaffold_controller_for(klass)
     
@@ -19,6 +20,16 @@ class ApplicationController < ActionController::Base
   end
   
   private
+
+  # Accesses the user that this session originally logged in as.
+  def original_user
+    if session[:original_user_id]
+      @original_user ||=  User.find(session[:original_user_id])
+    else
+      @original_user = current_user
+    end
+  end
+
 
   def check_user
     if logged_in?
