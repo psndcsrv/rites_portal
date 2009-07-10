@@ -16,11 +16,8 @@ class MockupDataLoader
   end
   
   def load
-    roles = load_roles
-    process_roles(roles)
-    
     users = load_from_yaml(@users_path, User)
-    process_users(users, roles)
+    process_users(users)
     
     grade_levels = load_from_yaml(@grade_levels_path, RitesPortal::GradeLevel)
     process_grade_levels(grade_levels)
@@ -72,15 +69,7 @@ private
     records
   end
   
-  def process_users(users, roles)
-    students = ['marcus', 'paul', 'maria', 'thomas']
-    students.each do |key|
-      users[key].roles << roles['student']
-    end
-    teachers = ['grigory', 'john', 'homer']
-    teachers.each do |key|
-      users[key].roles << roles['teacher']
-    end
+  def process_users(users)
     users.each do |key, user|
       rec = save_rec(user)
       rec.register! if rec.state == 'passive' 
@@ -157,39 +146,6 @@ private
     offerings['plant_1'].clazz = classes['evolution_1']
     offerings.each { |key, offering| offerings[key] = save_rec(offering) }
   end    
-  
-  def load_roles
-    roles = {}
-    roles['admin'] = Role.new(:title => 'admin',
-                              :position => 1,
-                              :uuid => 'BB613D6F-3E07-4CA3-ACE6-FC486F001115')
-    roles['manager'] = Role.new(:title => 'manager',
-                                :position => 2,
-                                :uuid => 'FE9471B0-DCC6-4303-BBD8-1C52C24B0DDD')
-    roles['researcher'] = Role.new(:title => 'researcher',
-                                   :position => 3,
-                                   :uuid => '50AAA10A-8196-4F30-9547-7B9123C59C4D')
-    roles['teacher'] = Role.new(:title => 'teacher',
-                                :position => 4,
-                                :uuid => '3346D5EB-9AD6-4B04-BF1C-49C7DF877A0D')
-    roles['author'] = Role.new(:title => 'author',
-                               :position => 5,
-                               :uuid => 'B1B6BA44-8F4B-41FF-8A23-AC1A476344FB')
-    roles['member'] = Role.new(:title => 'member',
-                               :position => 6,
-                               :uuid => 'D95EE77A-9188-4573-9FD0-4EA4DDC924DE')
-    roles['student'] = Role.new(:title => 'student',
-                                :position => 7,
-                                :uuid => '90D1587C-7B5C-47EF-964D-64C5CA7A9519')
-    roles['guest'] = Role.new(:title => 'guest',
-                              :position => 8,
-                              :uuid => 'AB3A340F-2DDC-413A-B1AC-D282FEE0B42E')                        
-    roles
-  end
-  
-  def process_roles(roles)
-    roles.each { |key, role| roles[key] = save_rec(role) }
-  end
   
   def process_grade_levels(grade_levels)
     grade_levels.each { |key, level| grade_levels[key] = save_rec(level) }
