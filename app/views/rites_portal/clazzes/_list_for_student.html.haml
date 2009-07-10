@@ -6,5 +6,5 @@
         - if offering.runnable 
           = render :partial => 'shared/offering_for_student', :locals => {:offering => offering}
         - else
-          = "No runnable for this offering: #{offering.name}"
+          = "No runnable for offering: #{offering.id}"
         
