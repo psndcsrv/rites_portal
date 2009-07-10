@@ -23,7 +23,7 @@ class RitesPortal::OfferingsController < ApplicationController
         # create a learner for the user if it doesnt' exist
         student = current_user.portal_student
         learner = @offering.learners.find_by_student_id(student)
-        learner ||= @offering.learners.create( :student_id => student)
+        learner ||= @offering.learners.create(:student_id => student.id)
         
         # render a jnlp for this learner
         render :partial => 'shared/jnlp_for_learner', :locals => {:learner => learner}
