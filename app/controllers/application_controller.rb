@@ -7,6 +7,7 @@ class ApplicationController < ActionController::Base
     
   before_filter :check_user
   before_filter :original_user
+  before_filter :portal_resources
   
   def self.active_scaffold_controller_for(klass)
     
@@ -21,6 +22,12 @@ class ApplicationController < ActionController::Base
   
   private
 
+  # setup the portal_teacher and student instance variables
+  def portal_resources
+    @portal_teacher = current_user.portal_teacher
+    @portal_student = current_user.portal_student
+  end
+  
   # Accesses the user that this session originally logged in as.
   def original_user
     if session[:original_user_id]
