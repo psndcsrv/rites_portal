@@ -29,7 +29,7 @@ class User < ActiveRecord::Base
   validates_presence_of     :vendor_interface_id
 
   # Relationships
-  has_and_belongs_to_many :roles
+  has_and_belongs_to_many :roles, :uniq => true, :join_table => "roles_users"
   
   has_one :portal_teacher, :class_name => "RitesPortal::Teacher"
   has_one :portal_student, :class_name => "RitesPortal::Student"
