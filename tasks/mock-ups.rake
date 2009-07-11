@@ -1,4 +1,4 @@
-namespace :rites_portal do
+namespace :portal do
   namespace :dev do
     
     desc 'Load db with imaginary data for development use'

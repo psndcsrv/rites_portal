@@ -1,6 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
-  map.namespace(:rites_portal) do |rites_portal|
-    rites_portal.namespace(:scaffold) do |scaff|
+  map.namespace(:portal) do |portal|
+    portal.namespace(:scaffold) do |scaff|
       scaff.resources :clazzes, :active_scaffold => true 
       scaff.resources :courses, :active_scaffold => true 
       scaff.resources :districts, :active_scaffold => true 
@@ -15,27 +15,27 @@ ActionController::Routing::Routes.draw do |map|
       scaff.resources :subjects, :active_scaffold => true 
       scaff.resources :teachers, :active_scaffold => true
     end
-    rites_portal.resources :clazzes, :as => 'classes', :member => {
+    portal.resources :clazzes, :as => 'classes', :member => {
         :add_offering => [:get,:post],
         :remove_offering => [:get, :post],
         :edit_offerings => [:get,:post]
     } 
-    rites_portal.resources :courses
-    rites_portal.resources :districts
-    rites_portal.resources :grade_levels
-    rites_portal.resources :learners
-    rites_portal.resources :offerings
-    rites_portal.resources :schools
-    rites_portal.resources :school_memberships
-    rites_portal.resources :semesters
-    rites_portal.resources :students, :collection => {
+    portal.resources :courses
+    portal.resources :districts
+    portal.resources :grade_levels
+    portal.resources :learners
+    portal.resources :offerings
+    portal.resources :schools
+    portal.resources :school_memberships
+    portal.resources :semesters
+    portal.resources :students, :collection => {
       :signup => [:get]
     }
-    rites_portal.resources :student_clazzes, :as => 'student_classes'
-    rites_portal.resources :subjects
-    rites_portal.resources :teachers
+    portal.resources :student_clazzes, :as => 'student_classes'
+    portal.resources :subjects
+    portal.resources :teachers
     
-    rites_portal.home 'readme', :controller => 'home', :action => 'readme'
+    portal.home 'readme', :controller => 'home', :action => 'readme'
     
   end
   

@@ -1,11 +1,11 @@
 require 'open-uri'
 
-namespace :rites_portal do
+namespace :portal do
   namespace :setup do
     
-    RITES_PORTAL_ROOT = File.dirname(File.dirname(__FILE__))
+    PORTAL_ROOT = File.dirname(File.dirname(__FILE__))
     
-    nces_dir = File.join(RITES_PORTAL_ROOT, 'config', 'nces_data')
+    nces_dir = File.join(PORTAL_ROOT, 'config', 'nces_data')
     school_layout_file = File.join(nces_dir, 'psu061blay.txt')
     district_layout_file = File.join(nces_dir, 'pau061blay.txt')
     

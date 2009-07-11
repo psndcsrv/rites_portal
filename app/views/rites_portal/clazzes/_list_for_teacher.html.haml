@@ -1,6 +1,0 @@
-%p= link_to 'Add a class', new_rites_portal_clazz_path(:teacher_id => teacher.id)
-- teacher.clazzes.each do |c|
-  = "#{c.name}" 
-  = link_to 'Configure Offerings', edit_offerings_rites_portal_clazz_path(c)
-  = link_to 'View Class', rites_portal_clazz_path(c)  
-  = "Reports"

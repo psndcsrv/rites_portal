@@ -1,2 +1,0 @@
-module RitesPortal::SemestersHelper
-end

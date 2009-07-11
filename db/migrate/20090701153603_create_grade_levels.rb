@@ -1,6 +1,6 @@
 class CreateGradeLevels < ActiveRecord::Migration
   def self.up
-    create_table :rites_portal_grade_levels do |t|
+    create_table :portal_grade_levels do |t|
 
       t.string    :uuid, :limit => 36
       t.string    :name
@@ -12,7 +12,7 @@ class CreateGradeLevels < ActiveRecord::Migration
       t.timestamps
     end
     
-    create_table :rites_portal_grade_levels_teachers, :id => false do |t|
+    create_table :portal_grade_levels_teachers, :id => false do |t|
       t.integer   :grade_level_id
       t.integer   :teacher_id
       
@@ -21,7 +21,7 @@ class CreateGradeLevels < ActiveRecord::Migration
   end
 
   def self.down
-    drop_table :rites_portal_grade_levels_teachers
-    drop_table :rites_portal_grade_levels
+    drop_table :portal_grade_levels_teachers
+    drop_table :portal_grade_levels
   end
 end

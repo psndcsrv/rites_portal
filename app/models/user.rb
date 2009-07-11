@@ -31,10 +31,10 @@ class User < ActiveRecord::Base
   # Relationships
   has_and_belongs_to_many :roles, :uniq => true, :join_table => "roles_users"
   
-  has_one :portal_teacher, :class_name => "RitesPortal::Teacher"
-  has_one :portal_student, :class_name => "RitesPortal::Student"
+  has_one :portal_teacher, :class_name => "Portal::Teacher"
+  has_one :portal_student, :class_name => "Portal::Student"
   
-  has_one :sds_config, :class_name => "RitesPortal::SdsConfig", :as => :configurable
+  has_one :sds_config, :class_name => "Portal::SdsConfig", :as => :configurable
   
   belongs_to :vendor_interface
 
@@ -141,7 +141,7 @@ class User < ActiveRecord::Base
       name_parts << self.uuid
     end
     name_parts << "" if name_parts.size < 2
-    self.create_sds_config(:sds_id => RitesPortal::SdsConnect::Connect.create_sail_user(name_parts[0], name_parts[1]))
+    self.create_sds_config(:sds_id => Portal::SdsConnect::Connect.create_sail_user(name_parts[0], name_parts[1]))
   end
   
   ###################################################

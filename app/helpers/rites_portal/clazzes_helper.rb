@@ -1,3 +1,0 @@
-module RitesPortal::ClazzesHelper
-
-end

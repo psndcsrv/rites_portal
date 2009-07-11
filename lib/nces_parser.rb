@@ -13,8 +13,8 @@ class NcesParser
     @school_layout = _get_school_layout(school_layout_file)
     puts "#{@school_layout.size} variables retrieved from #{school_layout_file}"
     
-    @district_model = "RitesPortal::Nces#{@year_str}District".constantize
-    @school_model = "RitesPortal::Nces#{@year_str}School".constantize
+    @district_model = "Portal::Nces#{@year_str}District".constantize
+    @school_model = "Portal::Nces#{@year_str}School".constantize
     
     # states_and_provinces should either be nil to import data from ALL states and provinces
     # or equal to an array of state and province abbreviation strings.
@@ -241,10 +241,10 @@ private
   #
   # However for 18,000 record it's still about twice as fast as using a Hash lookup
   def _parseDistrictSchoolAssociations
-    nces_districts = @district_model.find_by_sql("SELECT id,LEAID from #{RitesPortal::Nces06District.table_name}")
+    nces_districts = @district_model.find_by_sql("SELECT id,LEAID from #{Portal::Nces06District.table_name}")
     district_id_and_leaid_array = nces_districts.collect { |d| [d.id, d.LEAID] }
     
-    nces_schools = @school_model.find_by_sql("SELECT id, nces_district_id, LEAID from #{RitesPortal::Nces06School.table_name}")
+    nces_schools = @school_model.find_by_sql("SELECT id, nces_district_id, LEAID from #{Portal::Nces06School.table_name}")
     count = 0
     status = '.'
     nces_schools.each do |nces_school|
@@ -296,8 +296,8 @@ class NcesMigrationGenerator
     @text = ''
     @tables_migration_file_name = "create_nces#{@year_str}_tables.rb"
     @tables_migration_class_name = "CreateNces#{@year_str}Tables"
-    @district_table_name = "rites_portal_nces#{@year_str}_districts"
-    @school_table_name = "rites_portal_nces#{@year_str}_schools"
+    @district_table_name = "portal_nces#{@year_str}_districts"
+    @school_table_name = "portal_nces#{@year_str}_schools"
     @indexes_migration_file_name = "create_nces#{@year_str}_indexs.rb"
     @indexes_migration_class_name = "CreateNces#{@year_str}Indexes"    
   end
@@ -318,7 +318,7 @@ private
 
   def _get_file_path(migration_file_name)
     timestamp = Time.now.gmtime.strftime('%Y%m%d%H%M%S')
-    File.join(RITES_PORTAL_ROOT, 'db', 'migrate', "#{timestamp}_#{migration_file_name}")
+    File.join(PORTAL_ROOT, 'db', 'migrate', "#{timestamp}_#{migration_file_name}")
   end
 
   def _getIndexesText

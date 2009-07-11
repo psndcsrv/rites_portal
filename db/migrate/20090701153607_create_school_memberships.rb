@@ -1,6 +1,6 @@
 class CreateSchoolMemberships < ActiveRecord::Migration
   def self.up
-    create_table :rites_portal_school_memberships do |t|
+    create_table :portal_school_memberships do |t|
 
       t.string    :uuid, :limit => 36
       t.string    :name
@@ -17,6 +17,6 @@ class CreateSchoolMemberships < ActiveRecord::Migration
   end
 
   def self.down
-    drop_table :rites_portal_school_memberships
+    drop_table :portal_school_memberships
   end
 end

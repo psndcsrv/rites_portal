@@ -3,53 +3,53 @@ class MockupDataLoader
   def initialize
     yaml_dir = File.join(File.dirname(__FILE__), '..', 'test', 'fixtures')
     @users_path = File.join(yaml_dir, 'users.yml')
-    @grade_levels_path = File.join(yaml_dir, 'rites_portal_grade_levels.yml')
-    @students_path = File.join(yaml_dir, 'rites_portal_students.yml')
-    @teachers_path = File.join(yaml_dir, 'rites_portal_teachers.yml')
-    @districts_path = File.join(yaml_dir, 'rites_portal_districts.yml')
-    @schools_path = File.join(yaml_dir, 'rites_portal_schools.yml')
-    @semesters_path = File.join(yaml_dir, 'rites_portal_semesters.yml')
-    @courses_path = File.join(yaml_dir, 'rites_portal_courses.yml')
-    @classes_path = File.join(yaml_dir, 'rites_portal_clazzes.yml')
-    @offerings_path = File.join(yaml_dir, 'rites_portal_offerings.yml')
-    @learners_path = File.join(yaml_dir, 'rites_portal_learners.yml')
+    @grade_levels_path = File.join(yaml_dir, 'portal_grade_levels.yml')
+    @students_path = File.join(yaml_dir, 'portal_students.yml')
+    @teachers_path = File.join(yaml_dir, 'portal_teachers.yml')
+    @districts_path = File.join(yaml_dir, 'portal_districts.yml')
+    @schools_path = File.join(yaml_dir, 'portal_schools.yml')
+    @semesters_path = File.join(yaml_dir, 'portal_semesters.yml')
+    @courses_path = File.join(yaml_dir, 'portal_courses.yml')
+    @classes_path = File.join(yaml_dir, 'portal_clazzes.yml')
+    @offerings_path = File.join(yaml_dir, 'portal_offerings.yml')
+    @learners_path = File.join(yaml_dir, 'portal_learners.yml')
   end
   
   def load
     users = load_from_yaml(@users_path, User)
     process_users(users)
     
-    grade_levels = load_from_yaml(@grade_levels_path, RitesPortal::GradeLevel)
+    grade_levels = load_from_yaml(@grade_levels_path, Portal::GradeLevel)
     process_grade_levels(grade_levels)
     
     investigations = load_investigations
     process_investigations(investigations, users)
 
-    students = load_from_yaml(@students_path, RitesPortal::Student)    
+    students = load_from_yaml(@students_path, Portal::Student)    
     process_students(students, users, grade_levels)
     
-    teachers = load_from_yaml(@teachers_path, RitesPortal::Teacher)    
+    teachers = load_from_yaml(@teachers_path, Portal::Teacher)    
     process_teachers(teachers, users)
     
-    districts = load_from_yaml(@districts_path, RitesPortal::District)    
+    districts = load_from_yaml(@districts_path, Portal::District)    
     process_districts(districts)
     
-    schools = load_from_yaml(@schools_path, RitesPortal::School)    
+    schools = load_from_yaml(@schools_path, Portal::School)    
     process_schools(schools, districts)
     
-    semesters = load_from_yaml(@semesters_path, RitesPortal::Semester)
+    semesters = load_from_yaml(@semesters_path, Portal::Semester)
     process_semesters(semesters, schools)
         
-    courses = load_from_yaml(@courses_path, RitesPortal::Course)
+    courses = load_from_yaml(@courses_path, Portal::Course)
     process_courses(courses, schools)
     
-    classes = load_from_yaml(@classes_path, RitesPortal::Clazz)
+    classes = load_from_yaml(@classes_path, Portal::Clazz)
     process_classes(classes, courses, semesters, teachers, students)
     
-    offerings = load_from_yaml(@offerings_path, RitesPortal::Offering)
+    offerings = load_from_yaml(@offerings_path, Portal::Offering)
     process_offerings(offerings, classes, investigations)
     
-    learners = load_from_yaml(@learners_path, RitesPortal::Learner)
+    learners = load_from_yaml(@learners_path, Portal::Learner)
     process_learners(learners, students, offerings)
   end
   
