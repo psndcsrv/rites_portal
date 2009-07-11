@@ -14,4 +14,9 @@ class RitesPortal::Clazz < ActiveRecord::Base
   
   validates_presence_of :class_word
   validates_uniqueness_of :class_word
+  
+  def title
+    semester_name = semester ? semester.name : 'unknown'
+    "Class: #{name}, Semester: #{semester_name}"
+  end
 end
