@@ -3,8 +3,7 @@
 %p
   You can temporarily switch to another users account for testing and debugging. 
   - if @original_user != current_user
-    You originally logged in as: 
-    = @original_user.name + '.'
+    You originally logged in as: <b>#{@original_user.name}</b>.
   
 
 - form_for :user, @user, :url => switch_user_path(@user), :html => { :method => :put }  do |form|
