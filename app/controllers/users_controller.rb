@@ -83,7 +83,7 @@ class UsersController < ApplicationController
             self.current_user=(switch_to_user)
             session[:recently_switched_from_users] = recently_switched_from_users.uniq
           end
-        else # 'Restore Original User'
+        elsif params[:commit] =~ /#{@original_user.name}/
           self.current_user=(@original_user)
         end
         redirect_back_or_default('/home')

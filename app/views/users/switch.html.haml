@@ -1,7 +1,7 @@
 %h2
   Switch to a different user
 %p
-  You can temporarily switch to another users account for testing and debugging. 
+  You can temporarily switch to another user's account for testing and debugging. 
   - if @original_user != current_user
     %p
     You originally logged in as: <b>#{@original_user.name}</b>.
@@ -21,5 +21,8 @@
         %ul.menu_h.right_content
           %li
             - if @original_user != current_user
-              = submit_tag "Return to your actual user: #{@original_user.name}"
-    
+              - if (@original_user != @user_list[1][:users].first && @original_user != @user_list[0][:users].first)
+                = submit_tag "Return to your actual user: #{@original_user.name}"
+            - else
+              = submit_tag 'Cancel'
+        
