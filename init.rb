@@ -17,7 +17,7 @@ require 'activesupport'
 require 'activerecord'
 
 # setup the plugin so it gets reloaded in development mode
-ActiveSupport::Dependencies.load_once_paths.delete_if {|path| path.match("vendor/plugins/portal")}
+# ActiveSupport::Dependencies.load_once_paths.delete_if {|path| path.match("vendor/plugins/portal")}
 
 ActiveSupport::Inflector.inflections do |inflect|
   inflect.irregular 'clazz', 'clazzes'
