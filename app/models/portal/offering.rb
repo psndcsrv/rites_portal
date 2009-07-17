@@ -12,6 +12,10 @@ class Portal::Offering < ActiveRecord::Base
   
   [:name, :description].each { |m| delegate m, :to => :runnable }
   
+  def find_or_create_learner(student)
+    learners.find_by_student_id(student) || learners.create(:student_id => student.id)
+  end
+  
   ###################################################
   ### SDS Specific code
   ###################################################
