@@ -131,17 +131,22 @@ class User < ActiveRecord::Base
   ###################################################
   after_create :create_sds_counterpart
   
-  # Find or creates a learner for this sds runnable object
-  # and for the specified user.
+  # Find or creates an SdsUser for this user if one does not already exist.
+  #
+  # This method can be run on all users without making duplicate sds
+  # resources in order to add sds_config resources to legacy users.
+  #
   def create_sds_counterpart
-    name_parts = []
-    if self.name
-      name_parts = self.name.split(' ',2)
-    else
-      name_parts << self.uuid
+    sds_config || begin
+      name_parts = []
+      if self.name
+        name_parts = self.name.split(' ',2)
+      else
+        name_parts << self.uuid
+      end
+      name_parts << "" if name_parts.size < 2
+      self.create_sds_config(:sds_id => Portal::SdsConnect::Connect.create_sail_user(name_parts[0], name_parts[1]))
     end
-    name_parts << "" if name_parts.size < 2
-    self.create_sds_config(:sds_id => Portal::SdsConnect::Connect.create_sail_user(name_parts[0], name_parts[1]))
   end
   
   ###################################################
