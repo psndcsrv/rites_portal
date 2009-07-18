@@ -106,6 +106,17 @@ class User < ActiveRecord::Base
     end
   end
 
+  def set_role_ids(role_ids)
+    all_roles = Role.find(:all)
+    all_roles.each do |role|
+      if role_ids.find { |id| id.to_i == role.id }
+        add_role(role.title)
+      else
+        remove_role(role.title)
+      end
+    end
+  end
+
   def make_user_a_member
     roles << Role.find_by_title('member')
   end
