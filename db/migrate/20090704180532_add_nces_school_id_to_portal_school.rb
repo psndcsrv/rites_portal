@@ -1,4 +1,4 @@
-class AddNcesSchoolIdToSchool < ActiveRecord::Migration
+class AddNcesSchoolIdToPortalSchool < ActiveRecord::Migration
   def self.up
     add_column :portal_schools, :nces_school_id, :integer
   end
