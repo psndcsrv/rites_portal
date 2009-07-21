@@ -2,7 +2,7 @@ class Portal::DistrictsController < ApplicationController
   # GET /portal_districts
   # GET /portal_districts.xml
   def index
-    @districts = Portal::District.all
+    @districts = Portal::District.search(params[:search], params[:page], nil)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -35,6 +35,15 @@ class Portal::DistrictsController < ApplicationController
   # GET /portal_districts/1/edit
   def edit
     @district = Portal::District.find(params[:id])
+    if request.xhr?
+      render :partial => 'remote_form', :locals => { :district => @district }
+    else
+      respond_to do |format|
+        format.html
+        format.xml  { render :xml => @district }
+      end
+    end
+    
   end
 
   # POST /portal_districts
@@ -57,16 +66,24 @@ class Portal::DistrictsController < ApplicationController
   # PUT /portal_districts/1
   # PUT /portal_districts/1.xml
   def update
+    cancel = params[:commit] == "Cancel"
     @district = Portal::District.find(params[:id])
-
-    respond_to do |format|
-      if @district.update_attributes(params[:district])
-        flash[:notice] = 'Portal::District was successfully updated.'
-        format.html { redirect_to(@district) }
-        format.xml  { head :ok }
+    if request.xhr?
+      if cancel || @district.update_attributes(params[:district])
+        render :partial => 'show', :locals => { :district => @district }
       else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @district.errors, :status => :unprocessable_entity }
+        render :xml => @district.errors, :status => :unprocessable_entity
+      end
+    else
+      respond_to do |format|
+        if @district.update_attributes(params[:district])
+          flash[:notice] = 'Portal::District was successfully updated.'
+          format.html { redirect_to(@district) }
+          format.xml  { head :ok }
+        else
+          format.html { render :action => "edit" }
+          format.xml  { render :xml => @district.errors, :status => :unprocessable_entity }
+        end
       end
     end
   end
