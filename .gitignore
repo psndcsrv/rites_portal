@@ -1,4 +1,6 @@
+*~
 db/*sqlite3
 db/schema.rb
 log/*
 config/nces_data/*
+config/sds.yml
