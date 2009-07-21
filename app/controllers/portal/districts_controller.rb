@@ -50,15 +50,25 @@ class Portal::DistrictsController < ApplicationController
   # POST /portal_districts.xml
   def create
     @district = Portal::District.new(params[:district])
-
-    respond_to do |format|
-      if @district.save
-        flash[:notice] = 'Portal::District was successfully created.'
-        format.html { redirect_to(@district) }
-        format.xml  { render :xml => @district, :status => :created, :location => @district }
+    cancel = params[:commit] == "Cancel"
+    if request.xhr?
+      if cancel 
+        redirect_to :index
+      elsif @district.save
+        render :partial => 'new', :locals => { :district => @district }
       else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @district.errors, :status => :unprocessable_entity }
+        render :xml => @district.errors, :status => :unprocessable_entity
+      end
+    else
+      respond_to do |format|
+        if @district.save
+          flash[:notice] = 'Portal::District was successfully created.'
+          format.html { redirect_to(@district) }
+          format.xml  { render :xml => @district, :status => :created, :location => @district }
+        else
+          format.html { render :action => "new" }
+          format.xml  { render :xml => @district.errors, :status => :unprocessable_entity }
+        end
       end
     end
   end
