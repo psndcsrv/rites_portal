@@ -1,16 +1,15 @@
 require 'open-uri'
 
-namespace :rites_portal do
+namespace :portal do
   namespace :setup do
     
-    RITES_PORTAL_ROOT = File.dirname(File.dirname(__FILE__))
+    PORTAL_ROOT = File.dirname(File.dirname(__FILE__))
     
-    nces_dir = File.join(RITES_PORTAL_ROOT, 'config', 'nces_data')
+    nces_dir = File.join(PORTAL_ROOT, 'config', 'nces_data')
     school_layout_file = File.join(nces_dir, 'psu061blay.txt')
     district_layout_file = File.join(nces_dir, 'pau061blay.txt')
     
     desc 'Download nces data files from NCES websites'
-    
     task :download_nces_data do
       Dir.chdir(nces_dir) do
         files = [
@@ -48,7 +47,7 @@ namespace :rites_portal do
       parser.create_indexes_migration
     end
     
-    desc 'Import nces data from files: config/rigse_data/nces/* -- uses APP_CONFIG[:states_and_provinces] if defined to filter on states'
+    desc 'Import nces data from files: config/nces_data/* -- uses APP_CONFIG[:states_and_provinces] if defined to filter on states'
     task :import_nces_from_file => :environment do
       states_and_provinces = APP_CONFIG[:states_and_provinces]
       district_data_fnames = %w{ag061b.dat}

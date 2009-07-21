@@ -1,6 +1,6 @@
 class CreateStudentClazzes < ActiveRecord::Migration
   def self.up
-    create_table :rites_portal_student_clazzes do |t|
+    create_table :portal_student_clazzes do |t|
 
       t.string    :uuid, :limit => 36
       t.string    :name
@@ -17,6 +17,6 @@ class CreateStudentClazzes < ActiveRecord::Migration
   end
 
   def self.down
-    drop_table :rites_portal_student_clazzes
+    drop_table :portal_student_clazzes
   end
 end

@@ -1,7 +1,7 @@
 class CreateNces06Tables < ActiveRecord::Migration
 
   def self.up
-    create_table :rites_portal_nces06_districts do |t|
+    create_table :portal_nces06_districts do |t|
       t.string  :LEAID,     :limit => 7       # NCES Local Education Agency ID.  The first two positions of this field are also the Federal Information Profesing Standards (FIPS) state code.
       t.string  :FIPST,     :limit => 2       # Federal Information Processing Standards (FIPS) state code.
       t.string  :STID,      :limit => 14      # Stateís own ID for the education agency.
@@ -92,7 +92,7 @@ class CreateNces06Tables < ActiveRecord::Migration
     end
 
 
-    create_table :rites_portal_nces06_schools do |t|
+    create_table :portal_nces06_schools do |t|
       t.integer :nces_district_id
       t.string  :NCESSCH,   :limit => 12      # Unique NCES public school ID (7-digit NCES agency ID (LEAID) + 5-digit NCES school ID (SCHNO).
       t.string  :FIPST,     :limit => 2       # Federal Information Processing Standards (FIPS) state numeric code.
@@ -678,8 +678,8 @@ class CreateNces06Tables < ActiveRecord::Migration
   end
 
   def self.down
-    drop_table :rites_portal_nces06_districts
-    drop_table :rites_portal_nces06_schools
+    drop_table :portal_nces06_districts
+    drop_table :portal_nces06_schools
   end
 
 end

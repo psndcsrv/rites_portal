@@ -1,0 +1,5 @@
+sub1:
+  uuid: A6BDA544-013F-4A81-BB03-AFFA8A1797B6
+  name: Electronics
+  description: desc - electronics
+  teacher_id: 1

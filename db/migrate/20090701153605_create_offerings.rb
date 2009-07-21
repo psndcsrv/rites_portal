@@ -1,6 +1,6 @@
 class CreateOfferings < ActiveRecord::Migration
   def self.up
-    create_table :rites_portal_offerings do |t|
+    create_table :portal_offerings do |t|
 
       t.string    :uuid, :limit => 36
       t.string    :name
@@ -17,6 +17,6 @@ class CreateOfferings < ActiveRecord::Migration
   end
 
   def self.down
-    drop_table :rites_portal_offerings
+    drop_table :portal_offerings
   end
 end

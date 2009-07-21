@@ -1,8 +1,8 @@
 class CreateSdsConfigs < ActiveRecord::Migration
   def self.up
-    create_table :sds_configs do |t|
-      t.integer :runnable_id
-      t.string  :runnable_type
+    create_table :portal_sds_configs do |t|
+      t.integer :configurable_id
+      t.string  :configurable_type
       
       t.integer :sds_id
 
@@ -11,6 +11,6 @@ class CreateSdsConfigs < ActiveRecord::Migration
   end
 
   def self.down
-    drop_table :sds_configs
+    drop_table :portal_sds_configs
   end
 end

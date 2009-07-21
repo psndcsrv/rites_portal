@@ -1,0 +1,91 @@
+g_k:
+  uuid: 716BE5E3-1AAD-4B12-9516-826C15F3F18F
+  name: K
+  description: Kindergarten
+  order: 0
+  school_id: 1
+
+g_1:
+  uuid: C4F17D9B-B5DA-49CD-ADE3-83595DB57CB1
+  name: 1
+  description: 1st grade
+  order: 1
+  school_id: 1
+
+g_2:
+  uuid: CF79316A-9F20-46BC-B6C7-673B114DD5FF
+  name: 2
+  description: 2nd grade
+  order: 2
+  school_id: 1
+
+g_3:
+  uuid: 674B2F1A-4630-46A5-A73A-A0A8D70CAF35
+  name: 3
+  description: 3rd grade
+  order: 3
+  school_id: 1
+
+g_4:
+  uuid: B9B595DA-29DE-40BE-B419-91ACA1058829
+  name: 4
+  description: 4th grade
+  order: 4
+  school_id: 1
+
+g_5:
+  uuid: BA0CDF6F-B185-47C9-9903-F824B22B1EE5
+  name: 5
+  description: 5th grade
+  order: 5
+  school_id: 1
+
+g_6:
+  uuid: 8BFBE2D1-0867-4142-B3D4-FE2F902C80DE
+  name: 6
+  description: 6th grade
+  order: 6
+  school_id: 1
+
+g_7:
+  uuid: C7BF28AA-DF36-4553-9D1B-9E7A7FB22A9D
+  name: 7
+  description: 7th grade
+  order: 7
+  school_id: 1
+
+  
+g_8:
+  uuid: DC081FF3-54E3-43C6-A76D-3C452C6F2CFA
+  name: 8
+  description: 8th grade
+  order: 8
+  school_id: 1
+
+g_9:
+  uuid: 89DC5C47-BF49-4C8C-9144-51CAA851DBDF
+  name: 9
+  description: 9th grade
+  order: 9
+  school_id: 1
+
+g_10:
+  uuid: D037BB0C-772A-4693-869D-55BE403581B7
+  name: 10
+  description: 10th grade
+  order: 10
+  school_id: 1
+
+g_11:
+  uuid: 0E31BEB9-F3E3-4C7C-A0AB-32F611969E3B
+  name: 11
+  description: 11th grade
+  order: 11
+  school_id: 1
+
+g_12:
+  uuid: 0E5B5578-3C16-4763-BA4C-C91E7E58D0EF
+  name: 12
+  description: 11th grade
+  order: 12
+  school_id: 1

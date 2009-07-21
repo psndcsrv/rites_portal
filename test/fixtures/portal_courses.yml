@@ -1,0 +1,17 @@
+elem_elec:
+  uuid: ADD80CB7-43EB-4559-AAB9-794344192C92
+  name: Elementary Electronics
+  description: Basic concepts
+  status: open
+
+adv_elec:
+  uuid: 0B084C53-F6F7-4A59-8AB2-B0F5BC46C28B
+  name: Acvanced Electronics
+  description: Advanced theories and applications
+  status: open
+    
+evolution:
+  uuid: 0BD55E07-E97A-4A9A-8B17-AC74A854E52E
+  name: Revolution Edginess
+  description: Entropy of power equilibrium
+  status: open

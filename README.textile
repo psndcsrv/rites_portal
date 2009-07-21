@@ -1,4 +1,4 @@
-h1. RitesPortal Rails Engine
+h1. Portal Rails Engine
 
 This is a Rails Engine plugin designed to implement portal functionality such that would be used in schools. It will have:
 
@@ -13,7 +13,7 @@ h2. Installation
 
 h3. Installation into a new application
 
-The rites_portal engine uses git and the instructions below assume you are also using git for the application you are embedding the engine in.
+The portal engine uses git and the instructions below assume you are also using git for the application you are embedding the engine in.
 
 If you aren't already using git submodules in your application setup your repo for submodules:
 
@@ -27,16 +27,16 @@ If the Rails Engine plugin is not already installed -- install it now (http://ra
 $ script/plugin install git://github.com/lazyatom/engines.git
 </code></pre>
 
-Also install the rites_portal engine as a plugin:
+Also install the portal engine as a plugin:
 
 <pre><code>
-$ script/plugin install git://github.com/psndcsrv/rites_portal.git
+$ script/plugin install git://github.com/psndcsrv/portal.git
 </code></pre>
 
-*This isn't needed anymore:* Add this route to config/routes.rb: map.from_plugin :rites_portal
+*This isn't needed anymore:* Add this route to config/routes.rb: map.from_plugin :portal
 see: "Edge engines now compatible with Rails 2.3":http://rails-engines.org/news/2009/04/20/edge-engines-now-compatible-with-rails-2-3/
 
-Generate a migration in your app that when run will run all the migrations in the rites_portal engine:
+Generate a migration in your app that when run will run all the migrations in the portal engine:
 
 <pre><code>
 $ script/generate plugin_migration
@@ -50,7 +50,7 @@ $ rake db:migrate
 
 h3. Installation into the RITES Investigations application
 
-Currently the work with the rites_portal engine is in the 'with-portal' branch.
+Currently the work with the portal engine is in the 'with-portal' branch.
 
 If you are starting work with this branch create a local branch that will track the remote branch:
 
@@ -83,9 +83,9 @@ h2. Required Gems:
 
 Gem requirements should be added to config/environment.rb in the app that is embedding this engine.
 
-h2. Working on the RitesPortal Engine
+h2. Working on the Portal Engine
 
-The rites_portal engine is managed as a git submodule in the app it is embedded in. For effective development the engine needs to be installed as a plugin inside a working Rails app.
+The portal engine is managed as a git submodule in the app it is embedded in. For effective development the engine needs to be installed as a plugin inside a working Rails app.
 
 More about Rails Engines:
 
@@ -113,12 +113,12 @@ config.reload_plugins = true
 
 should cause the engine code to be reloaded when you make anew web request. This will presumably slow the server's response to the request but speed-up your development. It makes sense to disable reloading plugins when you aren't making development changes.
 
-h3. Working with the rites_portal engine as a git submodule
+h3. Working with the portal engine as a git submodule
 
 cd to the working directory for the engine and checkout the head of the master branch:
 
 <pre><code>
-$ cd vendor/plugins/rites_portal
+$ cd vendor/plugins/portal
 $ git co master
 </code></pre>
 
@@ -136,7 +136,7 @@ cd to the root dir of the app that the engine is embedded in:
 $ cd ../../..
 </code></pre>
 
-git status should show that the git submodule vendor/plugins/rites_portal has been changed:
+git status should show that the git submodule vendor/plugins/portal has been changed:
 
 <pre><code>
 $ git status
@@ -145,7 +145,7 @@ $ git status
 #   (use "git add <file>..." to update what will be committed)
 #   (use "git checkout -- <file>..." to discard changes in working directory)
 #
-#	modified:   vendor/plugins/rites_portal
+#	modified:   vendor/plugins/portal
 </code></pre>
 
 You can also use 'git submodule status' to check the status of all installed submodules
@@ -154,26 +154,26 @@ You can also use 'git submodule status' to check the status of all installed sub
 $ git submodule status
  5b16d05aeeb857f99f602c594068a7f25b940422 vendor/plugins/attachment_fu (5b16d05)
  bc5cd970e048dfe5e0e8c06ccf4969bd0d1299be vendor/plugins/engines (2.1.0-60-gbc5cd97)
-+35606e8af9321dd6d9c56643b79e47fdee2bd2bc vendor/plugins/rites_portal (heads/master)
++35606e8af9321dd6d9c56643b79e47fdee2bd2bc vendor/plugins/portal (heads/master)
 </code></pre>
 
-The '+' indicates that the submodule: vendor/plugins/rites_portal has been modified. The status line then indicates the current SHA for the HEAD of the branch, the directory where he submodule is located, and either a SHA or the name of a branch for the current state of the submodule.
+The '+' indicates that the submodule: vendor/plugins/portal has been modified. The status line then indicates the current SHA for the HEAD of the branch, the directory where he submodule is located, and either a SHA or the name of a branch for the current state of the submodule.
 
 Add a reference to the newer version of the rite_portal engine to your git index and commit it:
 
 <pre><code>
-$ git add vendor/plugins/rites_portal
-$ git commit vendor/plugins/rites_portal -m 'updated to new version of rites_portal engine'
+$ git add vendor/plugins/portal
+$ git commit vendor/plugins/portal -m 'updated to new version of portal engine'
 </code></pre>
 
-h3. Adding database migrations to the rites_portal engine
+h3. Adding database migrations to the portal engine
 
-First the migrations are added to the RITES_PORTAL_ROOT/db/migrate directory then a migration is added to the enclosing app which when run will in turn run the new migrations in the rails_portal engine.
+First the migrations are added to the PORTAL_ROOT/db/migrate directory then a migration is added to the enclosing app which when run will in turn run the new migrations in the rails_portal engine.
 
 Running script/generate migration doesn't work in the engine directory so I have been creating migrations using script/generate migration in the main application and then moving the new migration to the engines migration directory: 
 
 <pre><code>
-vendor/plugins/rites_portal/db/migrate
+vendor/plugins/portal/db/migrate
 </code></pre>
 
 Here's an example showing how I generated two migrations to add an attribute for a new 'belongs_to' association:
@@ -181,20 +181,20 @@ Here's an example showing how I generated two migrations to add an attribute for
 <pre><code>
 $ cd ../../..
 
-$ script/generate migration add_nces_district_id_to_rites_portal_district nces_district_id:integer
+$ script/generate migration add_nces_district_id_to_portal_district nces_district_id:integer
     exists  db/migrate
-    create  db/migrate/20090704180324_add_nces_district_id_to_rites_portal_district.rb
+    create  db/migrate/20090704180324_add_nces_district_id_to_portal_district.rb
 
-$ mv db/migrate/20090704180324_add_nces_district_id_to_rites_portal_district.rb vendor/plugins/rites_portal/db/migrate
+$ mv db/migrate/20090704180324_add_nces_district_id_to_portal_district.rb vendor/plugins/portal/db/migrate
 
-$ script/generate migration add_nces_school_id_to_rites_portal_school nces_school_id:integer
+$ script/generate migration add_nces_school_id_to_portal_school nces_school_id:integer
     exists  db/migrate
-    create  db/migrate/20090704180532_add_nces_school_id_to_rites_portal_school.rb
+    create  db/migrate/20090704180532_add_nces_school_id_to_portal_school.rb
 
-$ mv db/migrate/20090704180532_add_nces_school_id_to_rites_portal_school.rb vendor/plugins/rites_portal/db/migrate
+$ mv db/migrate/20090704180532_add_nces_school_id_to_portal_school.rb vendor/plugins/portal/db/migrate
 </code></pre>
 
-Now generate the migration in the app the rites_portal engine is embedded in that will references (and run) the new rites_portal engine migrations:
+Now generate the migration in the app the portal engine is embedded in that will references (and run) the new portal engine migrations:
 
 (from the ROOT directory in the enclosing application)
 
@@ -202,7 +202,7 @@ Now generate the migration in the app the rites_portal engine is embedded in tha
 $ script/generate plugin_migration
 </code></pre>
 
-This will generate a new migration that when run will run the new migrations in the rites_portal engine.
+This will generate a new migration that when run will run the new migrations in the portal engine.
 
 Run the new migrations to make the changes in the database:
 
@@ -228,4 +228,4 @@ You can do this as many times as you want ... but after committing and pushing t
 
 However if you have generated several sets of migration changes along with several runs of 'script/generate plugin_migration' in the enclosing app AND all the migrations in the engine make sense to run 'up' or 'down' as a unit you can edit the first plugin migration that you added to the enclosing app and have the 'up' migration refer to the version string for the most recent in the list of new migrations and the 'down' migration refer to the version of the migration that precedes the first migration of this new sequence.
 
-When the changes are ready push the rites_portal changes and switch to the enclosing app and commit and push the change in the reference to the vendor/plugins/rites_portal submodule and the new plugin migration added to the main app.
+When the changes are ready push the portal changes and switch to the enclosing app and commit and push the change in the reference to the vendor/plugins/portal submodule and the new plugin migration added to the main app.

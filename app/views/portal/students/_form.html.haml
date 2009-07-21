@@ -1,0 +1,17 @@
+- form_for @student do |f|
+  = f.error_messages
+  - field_set_tag 'name' do
+    First: #{text_field :user, :first_name, {:live => false}}
+    Last: #{text_field :user, :last_name, {:live => false}}
+  - field_set_tag 'password' do
+    Password: #{password_field :user, :password, {:live => false}}
+    Password again: #{password_field :user, :password_confirmation, {:live => false}}
+  - if signup
+    - field_set_tag 'class word' do
+      = text_field :clazz, :class_word, {:live => false}
+  - else
+    - field_set_tag 'grade level' do
+      = f.collection_select(:grade_level_id, (current_user.portal_teacher ? current_user.portal_teacher.schools.collect{|s| s.grade_levels}.flatten.uniq : []), :id, :name, options ={:prompt => "-Select a grade level"}, :class =>"string")
+    - if @clazz
+      = hidden_field :clazz, :id, {}
+  = f.submit 'Submit'

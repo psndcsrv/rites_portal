@@ -1,0 +1,104 @@
+marcus:
+  login: maurelius
+  first_name: Marcus
+  last_name: Aurelius
+  email: pp_u2@concord.org
+  password: 'password'
+  password_confirmation: 'password'
+  remember_token: remember_maurelius
+  activation_code: activate_maurelius
+  remember_token_expires_at: 2010-11-27 00:00
+  activated_at: 2009-06-01 00:00
+  deleted_at: nil
+  uuid: 96F2C75C-9E61-4619-A92C-EB2D829448EF
+  vendor_interface_id: 1
+
+paul:
+  login: pdirac
+  first_name: Paul
+  last_name: Dirac
+  email: pipi_u12@concord.org
+  password: 'password'
+  password_confirmation: 'password'
+  remember_token: remember_pdirac
+  activation_code: activate_pdirac
+  remember_token_expires_at: 2010-11-11 00:00
+  activated_at: 2009-06-11 00:00
+  deleted_at: nil
+  uuid: 827BC665-3704-42B6-B7E4-2BA6E7BBFCE2
+  vendor_interface_id: 1
+
+maria:
+  login: mcallas
+  first_name: Maria
+  last_name: Callas
+  email: pipi_u13@concord.org
+  password: 'password'
+  password_confirmation: 'password'
+  remember_token: remember_mcallas
+  activation_code: activate_mcallas
+  remember_token_expires_at: 2010-09-11 00:00
+  activated_at: 2009-05-11 00:00
+  deleted_at: nil
+  uuid: AA652C24-EA14-4E2B-968D-07394B1F6036
+  vendor_interface_id: 1
+
+thomas:
+  login: tedison
+  first_name: Thomas
+  last_name: Edison
+  email: pipi_u14@concord.org
+  password: 'password'
+  password_confirmation: 'password'
+  remember_token: remember_tedison
+  activation_code: activate_tedison
+  remember_token_expires_at: 2012-09-11 00:00
+  activated_at: 2009-03-13 00:00
+  deleted_at: nil
+  uuid: 97BD16B1-F230-495D-9AD8-60F7C7DB9AB3
+  vendor_interface_id: 1
+
+grigory:
+  login: grasputin
+  first_name: Grigory
+  last_name: Rasputin
+  email: pipi_u101@concord.org
+  password: 'password'
+  password_confirmation: 'password'
+  remember_token: remember_grasputin
+  activation_code: activate_grasputin
+  remember_token_expires_at: 2014-09-10 00:00
+  activated_at: 1891-03-10 00:00
+  deleted_at: nil
+  uuid: 810A6F58-6AE5-4AC3-9041-F95B1BCA390C
+  vendor_interface_id: 1
+
+john:
+  login: jneumann
+  first_name: John
+  last_name: Neumann
+  email: pipi_u102@concord.org
+  password: 'password'
+  password_confirmation: 'password'
+  remember_token: remember_jneumann
+  activation_code: activate_jneumann
+  remember_token_expires_at: 2011-01-10 00:00
+  activated_at: 1945-03-10 00:00
+  deleted_at: nil
+  uuid: 7711DB9F-A820-437F-A82D-DF2C49CA9294
+  vendor_interface_id: 1
+
+homer:
+  login: hsimpson
+  first_name: Homer
+  last_name: Simpson
+  email: pipiu103@concord.org
+  password: 'password'
+  password_confirmation: 'password'
+  remember_token: remember_hsimpson
+  activation_code: activate_hsimpson
+  remember_token_expires_at: 2019-09-09 00:00
+  activated_at: 2009-07-04 00:00
+  deleted_at: nil
+  uuid: A3B2012F-D696-475F-A5C0-2F1288209388
+  vendor_interface_id: 1
