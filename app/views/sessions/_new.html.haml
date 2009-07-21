@@ -1,0 +1,13 @@
+- field_set_tag "Log in" do
+  - form_tag session_path do 
+    = label_tag 'login', 'Username', :class=>"aligned"
+    = text_field_tag 'login', @login, :class=>"aligned"
+    = label_tag :password, "Password", :class=>"aligned"
+    = password_field_tag 'password', "Password", :class=>"aligned"
+    = label_tag 'submit', '', :class=>"aligned"
+    = submit_tag 'Login', :class=>"aligned"
+    = label_tag 'remember_me', 'Remember me', :class=>"aligned"
+    = check_box_tag 'remember_me', '1', @remember_me, :class=>"aligned"
+  %ul.menu_h_right
+    %li= link_to 'Forgot my password', forgot_password_path
+
