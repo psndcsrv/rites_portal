@@ -38,6 +38,11 @@ Rails::Initializer.run do |config|
   # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
   # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}')]
   # config.i18n.default_locale = :de
+  
+  config.gem 'rubyist-aasm', :lib => 'aasm', :source => 'http://gems.github.com', :version => '>=2.0.2'
+  config.gem "has_many_polymorphs", :version => ">= 2.13"
+  config.gem "ar-extensions", ">= 0.9.1"
+  
 end
 
 require File.join(File.dirname(__FILE__), '../init.rb')
