@@ -43,7 +43,6 @@ class Portal::DistrictsController < ApplicationController
         format.xml  { render :xml => @district }
       end
     end
-    
   end
 
   # POST /portal_districts
