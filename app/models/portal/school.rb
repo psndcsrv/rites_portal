@@ -13,4 +13,20 @@ class Portal::School < ActiveRecord::Base
   has_many :school_memberships, :class_name => "Portal::SchoolMembership", :foreign_key => "school_id"
   
   has_many_polymorphs :members, :from => [:"portal/teachers", :"portal/students"], :through => :"portal/school_memberships"
+
+  include Changeable
+
+  self.extend SearchableModel
+  
+  @@searchable_attributes = %w{uuid name description}
+  
+  class <<self
+    def searchable_attributes
+      @@searchable_attributes
+    end
+    def display_name
+      "School"
+    end
+  end
+  
 end
