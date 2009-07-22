@@ -12,7 +12,7 @@ class UsersController < ApplicationController
     end
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @pages }
+      format.xml  { render :xml => @users }
     end
   end
   
