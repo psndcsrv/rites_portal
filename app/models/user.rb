@@ -48,10 +48,25 @@ class User < ActiveRecord::Base
     def searchable_attributes
       @@searchable_attributes
     end
+    
+    def default_users
+      User.find_all_by_default_user(true)
+    end
+    
+    def suspend_default_users
+      default_users.each { |user| user.suspend! if user.state == 'active' }  
+    end
+    
+    def unsuspend_default_users
+      default_users.each { |user| user.unsuspend! if user.state == 'suspended' }  
+    end
   end
 
   # we will lazy load the anonymous user later
   @@anonymous_user = nil 
+  
+  # default users are a class of users that can be enable
+  default_value_for :default_user, false
  
   # we need a default VendorInterface, 6 = Vernier Go! IO
   default_value_for :vendor_interface_id, 6

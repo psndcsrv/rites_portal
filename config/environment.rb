@@ -46,3 +46,9 @@ Rails::Initializer.run do |config|
 end
 
 require File.join(File.dirname(__FILE__), '../init.rb')
+
+if APP_CONFIG[:enable_default_users]
+  User.unsuspend_default_users
+else
+  User.suspend_default_users
+end
