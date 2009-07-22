@@ -3,7 +3,7 @@ require File.join(File.dirname(__FILE__), '/lib/portal.rb')
 require File.join(File.dirname(__FILE__), '/lib/portal/sds_connect.rb')
 
 # Access this class so that the has_many_polymorphs code will get called and set up the associations in Teacher and Student
-Portal::School
+# Portal::School
 
 Portal::SdsConnect::Connect.setup
 
