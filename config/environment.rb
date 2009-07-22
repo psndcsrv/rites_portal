@@ -47,8 +47,12 @@ end
 
 require File.join(File.dirname(__FILE__), '../init.rb')
 
-if APP_CONFIG[:enable_default_users]
-  User.unsuspend_default_users
-else
-  User.suspend_default_users
+# Special-case for when the migration that adds the default_user
+# attribute hasn't been run yet.
+if User.site_admin.respond_to? :default_user
+  if APP_CONFIG[:enable_default_users]
+    User.unsuspend_default_users
+  else
+    User.suspend_default_users
+  end
 end
