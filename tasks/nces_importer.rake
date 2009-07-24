@@ -1,4 +1,5 @@
 require 'open-uri'
+require 'fileutils'
 
 namespace :portal do
   namespace :setup do
@@ -11,6 +12,7 @@ namespace :portal do
     
     desc 'Download nces data files from NCES websites'
     task :download_nces_data do
+      FileUtils.mkdir_p(nces_dir) unless File.exists?(nces_dir)
       Dir.chdir(nces_dir) do
         files = [
           'http://nces.ed.gov/ccd/data/zip/sc061bai_dat.zip',
@@ -23,14 +25,16 @@ namespace :portal do
           'http://nces.ed.gov/ccd/data/txt/pau061blay.txt'
         ]
         files.each do |url_str|
-          cmd = "wget -q -nc #{url_str}"
-          puts cmd
-          system(cmd)
-          if url_str =~ /\.zip\z/
-            cmd = "unzip -o #{File.basename(url_str)}"
+          unless File.exists?(File.basename(url_str))
+            cmd = "wget -q -nc #{url_str}"
             puts cmd
             system(cmd)
-          end 
+            if url_str =~ /\.zip\z/
+              cmd = "unzip -o #{File.basename(url_str)}"
+              puts cmd
+              system(cmd)
+            end
+          end
         end
       end
     end
