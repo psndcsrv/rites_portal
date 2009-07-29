@@ -1,13 +1,13 @@
 
 - options = { :complete => mce_init_string, :omit_delete => true }
-%div{ :id => dom_id_for(clazz), :class => "container_element" }
-  .action_menu
-    .action_menu_header_left
-      = clazz.name
-    .action_menu_header_right
-      = link_to 'Configure Offerings', edit_offerings_portal_clazz_path(clazz)
-      = link_to 'View Class', portal_clazz_path(clazz)
+%div.item_collection{ :id => dom_id_for(clazz)}
   %div{:id => dom_id_for(clazz, :item), :class => 'item'}
+    .action_menu
+      .action_menu_header_left
+        = link_to clazz.name, portal_clazz_path(clazz)
+      .action_menu_header_right
+        = link_to 'Configure Offerings', edit_offerings_portal_clazz_path(clazz)
+        = link_to 'View Class', portal_clazz_path(clazz)
     %div{:id => dom_id_for(clazz, :details), :class => 'content'}
       = wrap_edit_link_around_content(clazz, options={:complete => mce_init_string}) do
         %h4= h(clazz.name)
@@ -25,15 +25,10 @@
                     'no schools'
               - else
                 'no teacher'
-  
-
-  
             %li
               Name:
               =h(clazz.name)
-  
             %li
               Description:
               =h(clazz.description)
-    
-    
+

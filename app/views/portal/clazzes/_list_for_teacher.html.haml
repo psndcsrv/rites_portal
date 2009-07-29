@@ -1,5 +1,6 @@
 %p= link_to 'Add a class', new_portal_clazz_path(:teacher_id => teacher.id)
-- teacher.clazzes.each do |c|
-  = render :partial => 'portal/clazzes/show', :locals => {:clazz => c}
+.item_collection
+  - teacher.clazzes.each do |c|
+    = render :partial => 'portal/clazzes/show', :locals => {:clazz => c}
  
 
