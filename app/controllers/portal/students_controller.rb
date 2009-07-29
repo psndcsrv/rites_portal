@@ -58,20 +58,26 @@ class Portal::StudentsController < ApplicationController
 
       student_params = params[:student]
       student_params ||= {}
-      student_params[:name] = "#{@user.first_name} #{@user.last_name}"
+      # student_params[:name] = "#{@user.first_name} #{@user.last_name}"
       student_params[:user_id] = @user.id
       @student = Portal::Student.new(student_params)
-      if params[:clazz][:id]
-        @clazz = Portal::Clazz.find(params[:clazz][:id])
+      
+      # check the multitude of ways that a class might have been passed in
+      if params[:clazz_id]
+        @clazz = Portal::Clazz.find(params[:clazz_id])
+      elsif params[:class_word]
+        @clazz = Portal::Clazz.find_by_class_word(params[:class_word])
+      elsif params[:clazz]
+        if params[:clazz][:id]
+          @clazz = Portal::Clazz.find(params[:clazz][:id])
+        elsif params[:clazz][:class_word]
+          @clazz = Portal::Clazz.find_by_class_word(params[:clazz][:class_word])
+        end
       end
       
-      if params[:clazz][:class_word]
-        @clazz = Portal::Clazz.find_by_class_word(params[:clazz][:class_word])
-      end
-      @student.save!
       
-      if @clazz
-        @student.student_clazzes.create!(:clazz_id => @clazz.id, :start_time => Time.now)
+      if @student.save && @clazz
+        @student.student_clazzes.create!(:clazz_id => @clazz.id, :student_id => @student.id, :start_time => Time.now)
       end
       
       success = true
