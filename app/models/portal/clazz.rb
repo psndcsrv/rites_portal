@@ -19,4 +19,14 @@ class Portal::Clazz < ActiveRecord::Base
     semester_name = semester ? semester.name : 'unknown'
     "Class: #{name}, Semester: #{semester_name}"
   end
+  
+  # for the accordion display
+  def children
+    return students
+  end
+  
+  def parent
+    return teacher
+  end
+  
 end
