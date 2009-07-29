@@ -7,8 +7,8 @@ class Portal::Student < ActiveRecord::Base
   belongs_to :grade_level, :class_name => "Portal::GradeLevel", :foreign_key => "grade_level_id"
   
   # because of has many polymorphs, we don't need the following relationships defined
-  # has_many :school_memberships
-  # has_many :schools, :through => :school_memberships
+  has_many :school_memberships, :as => :member
+  has_many :schools, :through => :school_memberships
   
   has_many :learners, :class_name => "Portal::Learner", :foreign_key => "student_id"
   has_many :student_clazzes, :class_name => "Portal::StudentClazz", :foreign_key => "student_id"

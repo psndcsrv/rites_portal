@@ -5,9 +5,10 @@ class Portal::Teacher < ActiveRecord::Base
   
   belongs_to :user, :class_name => "User", :foreign_key => "user_id"
   
-  # because of has many polymorphs, we don't need the following relationships defined
-  # has_many :school_memberships
-  # has_many :schools, :through => :school_memberships
+  # because of has many polymorphs, we SHOULDN't need the following relationships defined, but
+  # HACK: noah went ahead, and explicitly defined them, because it wasn't working.
+  has_many :school_memberships, :as => :member
+  has_many :schools, :through => :school_memberships
   
   has_many :subjects, :class_name => "Portal::Subject", :foreign_key => "teacher_id"
   has_many :clazzes, :class_name => "Portal::Clazz", :foreign_key => "teacher_id"
