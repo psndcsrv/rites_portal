@@ -14,7 +14,7 @@ class Portal::Clazz < ActiveRecord::Base
   
   validates_presence_of :class_word
   validates_uniqueness_of :class_word
-  
+  include Changeable
   def title
     semester_name = semester ? semester.name : 'unknown'
     "Class: #{name}, Semester: #{semester_name}"
