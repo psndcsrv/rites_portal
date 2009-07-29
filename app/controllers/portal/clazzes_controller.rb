@@ -14,7 +14,7 @@ class Portal::ClazzesController < ApplicationController
   # GET /portal_clazzes/1.xml
   def show
     @clazz = Portal::Clazz.find(params[:id])
-
+    @teacher = @clazz.parent
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @clazz }
@@ -24,8 +24,8 @@ class Portal::ClazzesController < ApplicationController
   # GET /portal_clazzes/new
   # GET /portal_clazzes/new.xml
   def new
-    @clazz = Portal::Clazz.new
     @semesters = Portal::Semester.find(:all)
+    @clazz = Portal::Clazz.new
     if params[:teacher_id]
       @clazz.teacher = Portal::Teacher.find(params[:teacher_id])
     end
