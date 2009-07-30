@@ -41,8 +41,8 @@ class Portal::TeachersController < ApplicationController
   def create
     @user = User.new(params[:user])
     if @user && @user.valid?
-      @user.save
       @user.register!
+      @user.save
     end
     
     @teacher = Portal::Teacher.new(params[:teacher])
