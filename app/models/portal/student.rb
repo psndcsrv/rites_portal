@@ -16,6 +16,8 @@ class Portal::Student < ActiveRecord::Base
   has_many :clazzes, :through => :student_clazzes, :class_name => "Portal::Clazz"
   
   [:name, :first_name, :last_name, :email, :vendor_interface].each { |m| delegate m, :to => :user }
+  include Changeable
+  
   
   def self.generate_user_email
     hash = UUIDTools::UUID.timestamp_create.to_s
@@ -30,4 +32,23 @@ class Portal::Student < ActiveRecord::Base
     end
     return generated_login
   end
+  
+  ##
+  ## Strange approach to alter the behavior of Clazz.children()
+  ## to reflect a student-centric world view.
+  ## ... (possibly a bad idea?)
+  module FixupClazzes
+    def children
+      return offerings
+    end
+  end
+    
+  ##
+  ## required for the accordion view
+  ##
+  def children
+    clazzes.map! {|c| c.extend(FixupClazzes)}
+  end
+
+  
 end

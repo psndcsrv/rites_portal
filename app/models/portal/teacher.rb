@@ -17,6 +17,8 @@ class Portal::Teacher < ActiveRecord::Base
   
   [:name, :first_name, :last_name, :email, :vendor_interface].each { |m| delegate m, :to => :user }
   
+  include Changeable
+  
   
   ##
   ##

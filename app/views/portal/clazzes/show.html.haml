@@ -1,12 +1,2 @@
 = render :partial =>'portal/clazzes/show', :locals => {:clazz => @clazz}
-/ - field_set_tag @clazz.title do
-/   %p
-/     = @clazz.description
-/   - field_set_tag 'students' do
-/     = render :partial => 'portal/students/list_for_clazz', :locals => {:clazz => @clazz}
-/ = link_to 'Edit', edit_portal_clazz_path(@clazz)
-/ = link_to 'Back', portal_clazzes_path
-/ 
-
-    
     
