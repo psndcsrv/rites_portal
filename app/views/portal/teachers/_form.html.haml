@@ -1,13 +1,35 @@
 - form_for @teacher do |f|
   = f.error_messages
   - field_set_tag 'name' do
-    First: #{text_field :user, :first_name, {:live => false, }}
-    Last: #{text_field :user, :last_name, {:live => false, }}
+    .aligned
+      %ul
+        %li
+          = label_tag :user, 'First Name: ', :class=>"right"
+          = text_field :user, :first_name, {:live => false}
+        %li  
+          = label_tag :user, 'Last Name: ', :class=>"right"
+          = text_field :user, :last_name, {:live => false}
+        
   - field_set_tag 'login' do
-    Login: #{text_field :user, :login, {:live => false}}  
+    .aligned
+      %ul
+        %li
+          = label_tag :user, 'Login: ', :class=>"right"
+          = text_field :user, :login, {:live => false}
   - field_set_tag 'email' do
-    Email: #{text_field :user, :email, {:live => false}}  
+    .aligned
+      %ul
+        %li
+          = label_tag :user, 'Email: ', :class=>"right"
+          = text_field :user, :email, {:live => false} 
   - field_set_tag 'password' do
-    Password: #{password_field :user, :password, {:live => false,}}
-    Password again: #{password_field :user, :password_confirmation, {:live => false,}}
-  = f.submit 'Submit'
+    .aligned
+      %ul
+        %li
+          = label_tag :user, 'Password: ', :class=>"right"
+          = text_field :user, :password, {:live => false}
+        %li
+          = label_tag :user, 'Password again: ', :class=>"right"
+          = text_field :user, :password_confirmation, {:live => false}
+  .aligned
+    = f.submit 'Submit'
