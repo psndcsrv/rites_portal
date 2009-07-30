@@ -1,5 +1,5 @@
-- form_for @teacher do |f|
-  = f.error_messages
+- form_for @teacher do |f|  
+  = error_messages_for 'user'
   - field_set_tag 'name' do
     .aligned
       %ul
@@ -9,13 +9,17 @@
         %li  
           = label_tag :user, 'Last Name: ', :class=>"right"
           = text_field :user, :last_name, {:live => false}
-        
+
   - field_set_tag 'login' do
     .aligned
+     
       %ul
         %li
           = label_tag :user, 'Login: ', :class=>"right"
-          = text_field :user, :login, {:live => false}
+          = text_field :user, :login, {:live => false} 
+          %br
+          = error_message_on :user, :login, :css_class=>'flash_error'
+          
   - field_set_tag 'email' do
     .aligned
       %ul
