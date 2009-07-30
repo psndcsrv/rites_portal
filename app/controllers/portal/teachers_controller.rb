@@ -34,6 +34,7 @@ class Portal::TeachersController < ApplicationController
   # GET /portal_teachers/1/edit
   def edit
     @teacher = Portal::Teacher.find(params[:id])
+    @user = @teacher.user
   end
 
   # POST /portal_teachers
