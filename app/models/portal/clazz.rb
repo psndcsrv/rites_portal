@@ -25,6 +25,10 @@ class Portal::Clazz < ActiveRecord::Base
     return students
   end
   
+  def user
+    return teacher.user
+  end
+    
   def parent
     return teacher
   end
