@@ -1,0 +1,12 @@
+
+- options = { :complete => mce_init_string, :omit_delete => true }
+%div.item_collection{ :id => dom_id_for(clazz)}
+  %div{:id => dom_id_for(clazz, :item), :class => 'item'}
+    .action_menu
+      .action_menu_header_left
+        = link_to clazz.name, portal_clazz_path(clazz)
+      .action_menu_header_right
+        = link_to 'Configure Offerings', edit_offerings_portal_clazz_path(clazz)
+        = link_to 'View Class', portal_clazz_path(clazz)
+    = render :partial => 'portal/clazzes/show', :locals => {:clazz => clazz}
+
