@@ -6,7 +6,7 @@
     .action_menu
       .action_menu_header_right
         - if clazz.changeable?(current_user)
-          .action= link_to 'Configure Offerings', edit_offerings_portal_clazz_path(clazz)
+          .action= link_to 'assign investigations', edit_offerings_portal_clazz_path(clazz)
     - clazz.offerings.each do |offering|
       = render :partial =>'portal/offerings/show', :locals => {:offering => offering}
 
