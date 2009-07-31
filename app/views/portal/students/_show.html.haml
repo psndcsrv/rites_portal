@@ -1,3 +1,4 @@
 
 Select a RITES Investigation to run from the list below:
-= render :partial => 'portal/clazzes/list_for_student', :locals => { :student => @portal_student }
+- if @portal_student.changeable?(current_user)
+  = render :partial => 'portal/clazzes/list_for_student', :locals => { :student => @portal_student }
