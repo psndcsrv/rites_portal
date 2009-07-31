@@ -1,11 +1,12 @@
-
 %table{:width => "95%",:style=>"vertical-align:top;"}
   %tr
     %td{:width => "50%",:style=>"vertical-align:top; padding: 5px;"}
-      - content_for :clazz_listing do
+      .action_menu
+        %h4= "Offerings for Class #{@clazz_name}"
+        .tiny (drag items from the right into your class)
+      #clazz_offerings.drop_target
         - @clazz.offerings.each do |offering|
           = render :partial => 'shared/offering_for_teacher', :locals => {:offering => offering}
-      = render :partial => "shared/clazz_offering_header", :locals => {:clazz_name => @clazz.name}
 
     %td{:width => "50%",:style=>"vertical-align:top; padding: 5px;"}
       = render :partial => "shared/runnable_list", :locals => {:clazz => @clazz, :is_teacher => true}
