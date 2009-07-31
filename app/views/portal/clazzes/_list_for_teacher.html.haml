@@ -1,6 +1,16 @@
-%p= link_to 'Add a class', new_portal_clazz_path(:teacher_id => teacher.id)
-.item_collection
-  - teacher.clazzes.each do |c|
-    = render :partial => 'portal/clazzes/show', :locals => {:clazz => c}
- 
+
+%div{:id=>dom_id_for(teacher,:classes_container), :class=>"accordion_container"}
+  %div{:class=>"accordion_name"}
+    Classes:
+  %div{:id=>dom_id_for(teacher,:classes_toggle), :class=>"accordion_toggle"}
+  %div{:id=>dom_id_for(teacher,:classes_content), :class=>"accordion_content", :style=>'display: none;'}
+    .action_menu
+      .action_menu_header_right
+        - if teacher.changeable?(current_user)
+          = link_button "add.png",  new_portal_clazz_path(:teacher_id => teacher.id), :title => "add a new class"
+    %hr
+    .item
+      .item_collection
+        - teacher.clazzes.each do |c|
+          = render :partial => 'portal/clazzes/show', :locals => {:clazz => c}
 
