@@ -3,7 +3,8 @@
   %tr
     %td{:width => "50%",:style=>"vertical-align:top; padding: 5px;"}
       - content_for :clazz_listing do
-        = render :partial => "portal/offerings/list_for_clazz", :locals => {:clazz => @clazz, :is_teacher => true}
+        - @clazz.offerings.each do |offering|
+          = render :partial => 'shared/offering_for_teacher', :locals => {:offering => offering}
       = render :partial => "shared/clazz_offering_header", :locals => {:clazz_name => @clazz.name}
 
     %td{:width => "50%",:style=>"vertical-align:top; padding: 5px;"}
