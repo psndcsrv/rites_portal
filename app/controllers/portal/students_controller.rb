@@ -52,16 +52,13 @@ class Portal::StudentsController < ApplicationController
       @user = User.new(user_params)
       # temporarily disable sending email notifications for state change events
       @user.skip_notifications = true
-      @user.save!
       @user.register!
+      @user.save!
       @user.activate!
 
-      student_params = params[:student]
-      student_params ||= {}
-      # student_params[:name] = "#{@user.first_name} #{@user.last_name}"
-      student_params[:user_id] = @user.id
-      @student = Portal::Student.new(student_params)
+      @student = Portal::Student.new(:user_id =>  @user.id, :grade_level_id => params[:portal_student][:grade_level_id])
       
+      debugger
       # check the multitude of ways that a class might have been passed in
       if params[:clazz_id]
         @clazz = Portal::Clazz.find(params[:clazz_id])
