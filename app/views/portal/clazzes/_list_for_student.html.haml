@@ -1,13 +1,2 @@
-.item_collection
-  - student.clazzes.each do |c|
-    = render :partial => 'portal/clazzes/show_for_student', :locals => {:clazz => c}
-/ - student.clazzes.each do |clazz|
-/   %h3 Class #{clazz.name} 
-/   %ul
-/     - clazz.offerings.each do |offering|
-/       %li 
-/         - if offering.runnable 
-/           = render :partial => 'shared/offering_for_student', :locals => {:offering => offering}
-/         - else
-/           = "No runnable for offering: #{offering.id}"
-/         
+- student.clazzes.each do |c|
+  = render :partial => 'portal/clazzes/show_for_student', :locals => {:clazz => c}
