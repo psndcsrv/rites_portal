@@ -63,7 +63,7 @@ class UsersController < ApplicationController
     else
       if request.get?
         @user = User.find(params[:id])
-        all_users = User.all.collect
+        all_users = User.find_all_by_state('active')
         all_users.delete_if { |user| user.has_role?('admin') } unless @original_user.has_role?('admin')
         all_users.delete(current_user)
         recent_users = []
