@@ -24,7 +24,11 @@ class Portal::OfferingsController < ApplicationController
         # create a learner for the user if it doesnt' exist
         learner = @offering.find_or_create_learner(student)        
         # render a jnlp for this learner
-        render :partial => 'shared/jnlp_for_learner', :locals => {:learner => learner}
+        # render :partial => 'shared/jnlp_for_learner', :locals => {:learner => learner}
+        # render :partial => 'shared/jnlp_for_learner', :locals => {:learner => learner}
+        
+        render :partial => 'shared/learn', :locals => { :runnable => @offering.runnable, :learner => learner }
+        
       }
     end
   end

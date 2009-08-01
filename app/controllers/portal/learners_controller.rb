@@ -17,6 +17,11 @@ class Portal::LearnersController < ApplicationController
 
     respond_to do |format|
       format.html # show.html.erb
+      format.config { render :partial => 'shared/learn', 
+        :locals => { :runnable => @learner.offering.runnable, 
+                     :console_logger => @learner.console_logger, 
+                     :bundle_logger => @learner.bundle_logger } }            
+      
       format.xml  { render :xml => @learner }
     end
   end
