@@ -55,10 +55,7 @@ class Portal::StudentsController < ApplicationController
       @user.register!
       @user.save!
       @user.activate!
-
-      @student = Portal::Student.new(:user_id =>  @user.id, :grade_level_id => params[:portal_student][:grade_level_id])
       
-      debugger
       # check the multitude of ways that a class might have been passed in
       if params[:clazz_id]
         @clazz = Portal::Clazz.find(params[:clazz_id])
@@ -71,8 +68,18 @@ class Portal::StudentsController < ApplicationController
           @clazz = Portal::Clazz.find_by_class_word(params[:clazz][:class_word])
         end
       end
-      
-      
+
+      grade_level = Portal::GradeLevel.find_by_name('9')
+      if course = @clazz.course
+        grade_levels = course.grade_levels
+        grade_level = grade_levels[0] if grade_levels[0]
+      elsif teacher = @clazz.teacher
+        grade_levels = teacher.grade_levels
+        grade_level = grade_levels[0] if grade_levels[0]
+      end
+
+      @student = Portal::Student.create!(:user_id => @user.id, :grade_level_id => grade_level.id)
+
       if @student.save && @clazz
         @student.student_clazzes.create!(:clazz_id => @clazz.id, :student_id => @student.id, :start_time => Time.now)
       end
