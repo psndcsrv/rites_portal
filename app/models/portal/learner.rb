@@ -14,7 +14,7 @@ class Portal::Learner < ActiveRecord::Base
   [:name, :first_name, :last_name, :email, :vendor_interface].each { |m| delegate m, :to => :student }
 
   after_create do |learner|
-    learner.console_logger = Dataservice::ConsleLogger.create!
+    learner.console_logger = Dataservice::ConsoleLogger.create!
     learner.bundle_logger = Dataservice::BundleLogger.create!
   end
 
